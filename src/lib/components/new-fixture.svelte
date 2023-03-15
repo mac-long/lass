@@ -4,7 +4,7 @@
 
 <form class="flex flex-col mx-auto space-y-4" method="POST">
 	<div
-		class="flex flex-col sm:flex-row items-center sm:space-x-8 space-y-4 sm:space-y-0 justify-center"
+		class="flex flex-col justify-center items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-8"
 	>
 		<div class="flex flex-col">
 			<h3 class="text-xl">Team One</h3>
@@ -30,7 +30,7 @@
 		</div>
 	</div>
 	<input
-		class="hover:bg-primary hover:border-primary cursor-pointer duration-300"
+		class="duration-300 cursor-pointer hover:bg-primary hover:border-primary"
 		type="submit"
 		value="Submit"
 	/>

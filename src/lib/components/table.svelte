@@ -28,7 +28,7 @@
 	};
 </script>
 
-<div class="space-y-4 overflow-x-scroll">
+<div class="overflow-x-scroll space-y-4">
 	<table>
 		<thead>
 			<tr>
@@ -84,7 +84,7 @@
 			{#each $teamsTable as team, i}
 				<tr>
 					<td>{i + 1}</td>
-					<td class="flex space-x-8 items-center">
+					<td class="flex items-center space-x-8">
 						<img class="w-5 max-h-6" src={team.image} alt={`${team.name} logo`} />
 						<span>
 							{team.name}

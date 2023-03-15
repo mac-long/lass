@@ -1,7 +1,7 @@
 <script>
 	import '../app.postcss';
 	import '@fontsource/poppins/700.css';
-	import { configVisibile, teamsTable, sortFilter } from '$lib/store';
+	import { configVisibile, teamsTable } from '$lib/store';
 	import Header from '$lib/components/Header.svelte';
 	import Table from '$lib/components/table.svelte';
 	import Config from '$lib/components/config.svelte';
