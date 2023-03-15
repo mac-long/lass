@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body {
+		@apply font-sans;
+	}
+
+	main {
+		@apply text-center py-32 text-black overflow-hidden;
+	}
+
+	input,
+	select {
+		@apply appearance-none border-2 border-gray-300 p-2 rounded-md;
+
+		&[type='number'] {
+			@apply w-16;
+		}
+	}
+
+	table {
+		@apply uppercase font-bold max-w-3xl mx-auto;
+
+		thead {
+			@apply bg-primary;
+
+			th {
+				@apply px-6 py-3 text-left tracking-wider cursor-pointer select-none;
+			}
+		}
+
+		tbody {
+			tr {
+				@apply border-b border-slate-200;
+
+				td {
+					@apply px-6 py-4 whitespace-nowrap;
+				}
+			}
+		}
+	}
+}
