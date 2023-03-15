@@ -30,7 +30,7 @@
 		</div>
 	</div>
 	<input
-		class="duration-300 cursor-pointer hover:bg-primary hover:border-primary"
+		class="duration-300 cursor-pointer hover:bg-primary hover:border-primary mx-auto"
 		type="submit"
 		value="Submit"
 	/>
