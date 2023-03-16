@@ -15,7 +15,6 @@ export const actions = {
 		const teamTwo = data.get('teamTwo');
 		const scoreOne = Number(data.get('scoreOne'));
 		const scoreTwo = Number(data.get('scoreTwo'));
-		console.log(scoreOne, scoreTwo);
 
 		const { data: teamOneData } = await supabase.from('teams').select('*').eq('id', teamOne);
 
