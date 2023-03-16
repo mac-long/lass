@@ -20,7 +20,7 @@ export const actions = {
 
 		const { data: teamTwoData } = await supabase.from('teams').select('*').eq('id', teamTwo);
 
-		const { data: teamOneUpdated } = await supabase
+		const { data: teamOneUpdated, errorOne } = await supabase
 			.from('teams')
 			.update({
 				played: teamOneData[0].played + 1,
@@ -34,7 +34,7 @@ export const actions = {
 			})
 			.eq('id', teamOne);
 
-		const { data: teamTwoUpdated } = await supabase
+		const { data: teamTwoUpdated, errorTwo } = await supabase
 			.from('teams')
 			.update({
 				played: teamTwoData[0].played + 1,
@@ -48,11 +48,16 @@ export const actions = {
 			})
 			.eq('id', teamTwo);
 
-		return {
-			status: 200,
-			body: {
-				status: 'OK'
-			}
-		};
+		if (!errorOne && !errorTwo)
+			return {
+				status: 200,
+				body: {
+					status: 'OK',
+					teamUpdates: {
+						teamOneUpdated,
+						teamTwoUpdated
+					}
+				}
+			};
 	}
 };
