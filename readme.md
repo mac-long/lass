@@ -15,3 +15,4 @@
 - [ ] A New Team form for adding latecomers.
 - [ ] Some way of splitting across multiple seasons, so we can view a history of seasons and the table for each season.
 - [ ] Error and Success messages for adding teams etc.
+- [ ] Add efficient cache policy for logos.
