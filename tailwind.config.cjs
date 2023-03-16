@@ -3,7 +3,10 @@ const config = {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#A0FF1F'
+				primary: {
+					light: '#A0FF1F',
+					dark: '#619e0f'
+				}
 			},
 			fontFamily: {
 				sans: ['Poppins']
