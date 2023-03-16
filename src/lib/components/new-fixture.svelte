@@ -2,7 +2,7 @@
 	import { teamsTable } from '$lib/store';
 </script>
 
-<form class="flex flex-col mx-auto space-y-4 py-4" method="POST">
+<form class="flex flex-col mx-auto space-y-4 py-4 text-black dark:text-black" method="POST">
 	<div
 		class="flex flex-col justify-center items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-8"
 	>
