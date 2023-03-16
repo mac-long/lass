@@ -14,12 +14,6 @@
 
 		teamsTable.set(
 			$teamsTable.sort((a, b) => {
-				if (heading.toLowerCase() === 'name') {
-					return $sortFilter.order === 'asc'
-						? a[heading.toLowerCase()].localeCompare(b[heading.toLowerCase()])
-						: b[heading.toLowerCase()].localeCompare(a[heading.toLowerCase()]);
-				}
-
 				return $sortFilter.order === 'asc'
 					? a[heading.toLowerCase()] - b[heading.toLowerCase()]
 					: b[heading.toLowerCase()] - a[heading.toLowerCase()];
@@ -33,7 +27,9 @@
 		<thead>
 			<tr>
 				{#each $headings as heading}
-					{#if heading !== 'Pos'}
+					{#if heading === 'Pos' || heading === 'Club'}
+						<th class="cursor-default">{heading}</th>
+					{:else}
 						<th class="px-4" on:click={() => handleHeadingClick(heading)}>
 							<span class="flex items-center">
 								{heading}
@@ -74,8 +70,6 @@
 								{/if}
 							</span>
 						</th>
-					{:else}
-						<th class="cursor-default">{heading}</th>
 					{/if}
 				{/each}
 			</tr>
