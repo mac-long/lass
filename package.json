@@ -12,7 +12,7 @@
 	"devDependencies": {
 		"@supabase/supabase-js": "^2.10.0",
 		"@fontsource/poppins": "^4.5.10",
-		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-vercel": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
 		"autoprefixer": "^10.4.7",
 		"eslint": "^8.28.0",
