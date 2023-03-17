@@ -15,10 +15,6 @@
 	
 	button {
 		@apply hover:text-primary-light dark:hover:text-primary-dark;
-		
-		&.primary {
-			@apply hover:bg-primary-light dark:hover:bg-primary-dark;
-		}
 	}
 
 	input,
@@ -27,6 +23,9 @@
 
 		&[type='number'] {
 			@apply w-16;
+		}
+		&[type='submit'] {
+			@apply hover:bg-primary-light dark:hover:bg-primary-dark;
 		}
 	}
 
