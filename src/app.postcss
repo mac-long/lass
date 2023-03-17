@@ -12,6 +12,14 @@
 	main {
 		@apply text-center py-32 overflow-hidden;
 	}
+	
+	button {
+		@apply hover:text-primary-light dark:hover:text-primary-dark;
+		
+		&.primary {
+			@apply hover:bg-primary-light dark:hover:bg-primary-dark;
+		}
+	}
 
 	input,
 	select {
