@@ -9,7 +9,7 @@
 	>
 		<h2 class="mb-16 text-2xl font-bold">New Fixture</h2>
 		<button
-			class="absolute top-0 right-0 p-2 text-4xl font-bold duration-300 hover:text-primary"
+			class="absolute top-0 right-0 p-2 text-4xl font-bold duration-300"
 			on:click={() => configVisibile.set(false)}
 		>
 			×
