@@ -8,11 +8,4 @@
 
 ## Todo
 
-- [ ] Add Light/Dark Mode Toggle.
-- [ ] Perhaps add some kind of previous fixtures list with major stats.
-- [ ] Form validation.
-- [ ] A frontend override so mistakes can be corrected without needing to login to the db.
-- [ ] A New Team form with team spinner for adding teams.
-- [ ] Some way of splitting across multiple seasons, so we can view a history of seasons and the table for each season.
-- [ ] Error and Success messages for adding teams etc.
-- [ ] Add efficient cache policy for logos.
+View issues for the [project here](https://github.com/mac-long/tsc-fc/issues) or a full [project board here](https://github.com/users/mac-long/projects/2/views/1?layout=board)
