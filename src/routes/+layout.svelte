@@ -24,7 +24,7 @@
 	</h1>
 	<nav class="space-x-4">
 		{#if session}
-			<a class="button" href="/dahsboard">Dashboard</a>
+			<a class="button" href="/dashboard">Dashboard</a>
 		{:else}
 			<a class="button" href="/get-started">Get Started</a>
 		{/if}
