@@ -1,6 +1,10 @@
 <script>
 	import Plus from '$lib/icons/plus.svelte';
 	import Card from './card.svelte';
+
+	export let data;
+	const { leagues } = data;
+	console.log(leagues);
 </script>
 
 <div class="relative mb-8">
@@ -15,5 +19,5 @@
 </div>
 
 <div class="flex items-center flex-wrap justify-center mx-auto max-w-7xl">
-  <Card />
+	<Card />
 </div>

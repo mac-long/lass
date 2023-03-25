@@ -35,6 +35,6 @@
 <main>
 	<slot />
 </main>
-<footer class="font-bold text-center">
+<footer class="font-bold text-center py-8">
 	<span>© {new Date().getFullYear()} <a href="/">League Tables</a></span>
 </footer>

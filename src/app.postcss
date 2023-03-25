@@ -5,12 +5,12 @@
 @layer base {
 	html,
 	body {
-		@apply font-sans text-black;
+		@apply font-sans text-black min-h-screen flex flex-col;
 		@apply dark:bg-slate-700 dark:text-white;
 	}
 
 	main {
-		@apply text-center py-32 overflow-hidden;
+		@apply text-center  overflow-hidden flex-grow flex-1;
 	}
 
 	h1 {
