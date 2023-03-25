@@ -1,10 +1,17 @@
 <script>
-	export let name, color;
+	export let id, name, color;
 </script>
 
-<a
-	class={`w-56 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md bg-indigo-500 hover:bg-indigo-600 mr-4 mb-4 bg-[${color || 'indigo-500'}}]`}
-	href="/"
->
-	<h2 class="text-2xl pl-4 pb-2">{name}</h2>
+<a class='card' href={`/dashboard/${id}`} style={`background-color: ${color}`}>
+	<h2>{name}</h2>
 </a>
+
+<style lang="postcss">
+	.card {
+		@apply w-56 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md mr-4 mb-4;
+
+		h2 {
+			@apply text-2xl pl-4 pb-2;
+		}
+	}
+</style>

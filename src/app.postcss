@@ -19,19 +19,24 @@
 
 	a {
 		@apply font-bold;
-		@apply hover:text-primary-light;
+		@apply hover:text-emerald-400;
 	}
 
 	p {
 		@apply font-normal;
 	}
 
-	button, .button {
-		@apply bg-primary-light border-primary-light px-4 py-2 font-bold rounded-md text-black transition-colors duration-300 ease-in-out;
-		@apply hover:bg-primary-dark hover:text-white;
+	button, .button, input[type='submit'] {
+		@apply bg-emerald-400 border-emerald-400 px-4 py-2 font-bold rounded-md text-black transition-colors duration-300 ease-in-out cursor-pointer;
+		@apply hover:bg-emerald-500 hover:text-white;
 
 		&.link {
 			@apply bg-transparent border-none;
+		}
+
+		&.secondary {
+			@apply bg-white border-gray-300 text-black;
+			@apply hover:bg-indigo-500;
 		}
 	}
 
@@ -47,10 +52,13 @@
 
 			input,
 			select {
-				@apply text-center appearance-none border-2 border-gray-300 p-2 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-primary-light focus:outline-none;
+				@apply text-center appearance-none border-2 border-gray-300 p-2 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-emerald-400 focus:outline-none;
 
 				&[type='number'] {
 					@apply w-16;
+				}
+				&[type='color'] {
+					@apply w-36 p-4 mx-auto;
 				}
 			}
 		}
@@ -60,7 +68,7 @@
 		@apply uppercase font-bold max-w-3xl mx-auto;
 
 		thead {
-			@apply bg-primary-light;
+			@apply bg-emerald-400;
 
 			th {
 				@apply px-6 py-3 text-left tracking-wider cursor-pointer select-none;
