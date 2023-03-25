@@ -45,13 +45,33 @@
 			@apply bg-red-500;
 			@apply hover:bg-red-600;
 		}
+
+		&.circle {
+			@apply w-8 h-8 rounded-full flex items-center justify-center;
+		}
+
+		&.edit {
+			@apply bg-transparent p-0;
+			@apply hover:text-emerald-500;
+		}
 	}
 
-	form {
-		@apply max-w-xl mx-auto;
+	form,
+	.form {
+		.teams {
+			@apply max-w-none flex flex-col items-start space-y-2;
+		}
+
+		.actions {
+			@apply flex items-center space-x-2 mb-2;
+		}
 
 		.form-group {
 			@apply flex flex-col mb-4 space-y-2;
+
+			&.team {
+				@apply flex-row space-x-2 space-y-0;
+			}
 
 			label {
 				@apply font-bold;

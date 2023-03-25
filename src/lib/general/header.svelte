@@ -5,7 +5,7 @@
 </script>
 
 <div class="relative mb-8">
-	<div class="flex absolute top-0 right-48 items-center space-x-1">
+	<div class="flex absolute top-0 right-48 items-center space-x-3">
 		{#each actions as action}
 			<button
 				class={`flex items-center space-x-1 ${action.primary ? 'primary' : 'secondary'}`}

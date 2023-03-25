@@ -22,7 +22,6 @@ export const actions = {
 		});
 
 		if (error) {
-			console.log(error);
 			return {
 				status: 500,
 				error
