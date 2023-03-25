@@ -1,7 +1,10 @@
+import { supabase } from '$lib/supabase';
+
 export const load = async ({ locals: { getSession } }) => {
-	let session = getSession();
-	console.log(session);
+	const session = await getSession();
+	const { data: leagues } = await supabase.from('leagues').select('*').eq('user', session.user.id);
+
 	return {
-		session: session
+		leagues
 	};
 };

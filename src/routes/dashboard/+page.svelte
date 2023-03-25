@@ -3,8 +3,8 @@
 	import Card from './card.svelte';
 
 	export let data;
-	const { leagues } = data;
-	console.log(leagues);
+
+	console.log(data)
 </script>
 
 <div class="relative mb-8">
@@ -19,5 +19,7 @@
 </div>
 
 <div class="flex items-center flex-wrap justify-center mx-auto max-w-7xl">
-	<Card />
+	{#each data.leagues as {name, color}}
+		<Card {name} {color} />
+	{/each}
 </div>
