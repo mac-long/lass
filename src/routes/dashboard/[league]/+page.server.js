@@ -11,7 +11,8 @@ export async function load({ locals: { getSession }, params }) {
 	const { data: league, error } = await supabase
 		.from('leagues')
 		.select('*')
-		.eq('id', params.league);
+		.eq('id', params.league)
+		.single();
 
 	if (error) {
 		throw error(500, 'Error loading league');

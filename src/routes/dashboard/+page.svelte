@@ -1,6 +1,6 @@
 <script>
 	import Container from '$lib/forms/container.svelte';
-	import Plus from '$lib/icons/plus.svelte';
+	import Header from '$lib/general/header.svelte';
 	import { writable } from 'svelte/store';
 	import Input from '../../lib/forms/input.svelte';
 	import Card from './card.svelte';
@@ -10,19 +10,12 @@
 	const open = writable(false);
 </script>
 
-<div class="relative mb-8">
-	<button
-		class="flex absolute top-0 right-48 items-center space-x-1"
-		on:click={() => open.set(true)}
-	>
-		<Plus /> <span>New</span>
-	</button>
-	<h1>Welcome</h1>
-	<p class="mx-auto max-w-lg">
-		This is your dashboard, click the new button to create a new league or select one of your
-		previouly created leagues below.
-	</p>
-</div>
+<Header
+	actions={[{ label: 'New', onClick: () => open.set(true) }]}
+	title="Leagues"
+	description="This is your dashboard, click the new button to create a new league or select one of your
+		previouly created leagues below."
+/>
 
 <div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl py-16">
 	{#each data.leagues as { id, name, color }}
