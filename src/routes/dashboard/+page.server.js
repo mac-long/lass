@@ -8,3 +8,32 @@ export const load = async ({ locals: { getSession } }) => {
 		leagues
 	};
 };
+
+export const actions = {
+	new: async ({ locals: { getSession }, request }) => {
+		const session = await getSession();
+		const data = await request.formData();
+
+		const { data: leagues, error } = await supabase.from('leagues').insert({
+			user: session.user.id,
+			name: data.get('name'),
+			description: data.get('description'),
+			color: data.get('color')
+		});
+
+		if (error) {
+			console.log(error);
+			return {
+				status: 500,
+				error
+			};
+		} else {
+			return {
+				status: 200,
+				body: {
+					leagues
+				}
+			};
+		}
+	}
+};

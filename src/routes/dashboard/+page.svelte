@@ -24,19 +24,20 @@
 	</p>
 </div>
 
-<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl">
+<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl py-16">
 	{#each data.leagues as { id, name, color }}
-		<Card key={id} {id} {name} {color} />
+		<Card {id} {name} {color} />
 	{/each}
 </div>
 
 <Container title="New League" {open}>
-	<form action="">
+	<form method="POST" action="?/new">
 		<Input name="name" label="League Name" type="text" placeholder="Enter league name" value="" />
 		<Input
-			name="decription"
+			name="description"
 			label="League Description"
-			type="text"
+			type="textarea"
+			maxLength={255}
 			placeholder="Enter league description"
 			value=""
 		/>
