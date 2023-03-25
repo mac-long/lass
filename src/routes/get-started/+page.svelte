@@ -5,7 +5,7 @@
 		export let data;
 </script>
 
-<h1 class="text-5xl mb-8">Login</h1>
+<h1>Login</h1>
 <Auth
 	supabaseClient={data.supabase}
 	view="magic_link"
