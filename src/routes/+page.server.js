@@ -1,7 +1,7 @@
 import { supabase } from '$lib/supabaseClient.js';
 
 export async function load() {
-	let { data: teams } = await supabase.from('teams').select('*');
+	let { data: teams } = await supabase.from('oldTeams').select('*');
 
 	return {
 		teams
@@ -16,12 +16,12 @@ export const actions = {
 		const scoreOne = Number(data.get('scoreOne'));
 		const scoreTwo = Number(data.get('scoreTwo'));
 
-		const { data: teamOneData } = await supabase.from('teams').select('*').eq('id', teamOne);
+		const { data: teamOneData } = await supabase.from('oldTeams').select('*').eq('id', teamOne);
 
-		const { data: teamTwoData } = await supabase.from('teams').select('*').eq('id', teamTwo);
+		const { data: teamTwoData } = await supabase.from('oldTeams').select('*').eq('id', teamTwo);
 
 		const { data: teamOneUpdated, errorOne } = await supabase
-			.from('teams')
+			.from('oldTeams')
 			.update({
 				played: teamOneData[0].played + 1,
 				won: teamOneData[0].won + (scoreOne > scoreTwo ? 1 : 0),
@@ -35,7 +35,7 @@ export const actions = {
 			.eq('id', teamOne);
 
 		const { data: teamTwoUpdated, errorTwo } = await supabase
-			.from('teams')
+			.from('oldTeams')
 			.update({
 				played: teamTwoData[0].played + 1,
 				won: teamTwoData[0].won + (scoreTwo > scoreOne ? 1 : 0),
