@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import '../app.postcss';
 
-	export let data, session;
+	export let data;
 	$: ({ supabase } = data);
 
 	onMount(() => {
@@ -23,7 +23,7 @@
 		<a href="/">League Tables</a>
 	</h1>
 	<nav class="space-x-4">
-		{#if session}
+		{#if data.session}
 			<a class="button" href="/dashboard">Dashboard</a>
 		{:else}
 			<a class="button" href="/get-started">Get Started</a>
