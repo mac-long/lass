@@ -14,24 +14,24 @@
 	}
 
 	h1 {
-		@apply text-5xl mb-8;
-	}
-
-	button, .button {
-		@apply bg-primary-light border-primary-light px-4 py-2 rounded-md text-black transition-colors duration-300 ease-in-out;
-		@apply hover:bg-primary-dark;
-
-		&.link {
-			@apply bg-transparent border-none;
-		}
+		@apply text-5xl mb-8 font-bold;
 	}
 
 	a {
-		@apply transition-colors duration-300 ease-in-out;
+		@apply font-bold;
 		@apply hover:text-primary-light;
+	}
 
-		&.button {
-			@apply hover:text-white;
+	p {
+		@apply font-normal;
+	}
+
+	button, .button {
+		@apply bg-primary-light border-primary-light px-4 py-2 font-bold rounded-md text-black transition-colors duration-300 ease-in-out;
+		@apply hover:bg-primary-dark hover:text-white;
+
+		&.link {
+			@apply bg-transparent border-none;
 		}
 	}
 
@@ -40,6 +40,10 @@
 
 		.form-group {
 			@apply flex flex-col mb-4 space-y-2;
+
+			label {
+				@apply font-bold;
+			}
 
 			input,
 			select {

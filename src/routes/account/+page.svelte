@@ -27,6 +27,6 @@
 		<button class="button hover:text-white" type="submit" disabled={loading}>Sign Out</button>
 	</div>
 	<div class="form-group">
-		<button class="button bg-red-500 text-white hover:bg-red-400" formaction="?/delete">Delete Account</button>
+		<button class="bg-red-500 hover:bg-red-600" formaction="?/delete">Delete Account</button>
 	</div>
 </form>

@@ -1,5 +1,6 @@
 <script>
 	import { invalidate } from '$app/navigation';
+	import '@fontsource/poppins/400.css';
 	import '@fontsource/poppins/700.css';
 	import { onMount } from 'svelte';
 	import '../app.postcss';
@@ -34,6 +35,6 @@
 <main>
 	<slot />
 </main>
-<footer class="text-center">
+<footer class="font-bold text-center">
 	<span>© {new Date().getFullYear()} <a href="/">League Tables</a></span>
 </footer>
