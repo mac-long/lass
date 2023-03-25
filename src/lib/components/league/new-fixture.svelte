@@ -6,7 +6,7 @@
 	<div
 		class="flex flex-col justify-center items-center space-y-4 sm:flex-row sm:space-y-0 sm:space-x-8"
 	>
-		<div class="flex flex-col">
+		<div class="form-group">
 			<h3 class="text-xl">Team One</h3>
 			<div class="flex items-center space-x-2">
 				<select name="teamOne" defaultValue={$teamsTable[0].id}>
@@ -17,7 +17,7 @@
 				<input name="scoreOne" type="number" defaultValue="0" />
 			</div>
 		</div>
-		<div class="flex flex-col">
+		<div class="form-group">
 			<h3 class="text-xl">Team Two</h3>
 			<div class="flex items-center space-x-2">
 				<select name="teamTwo" defaultValue={$teamsTable[0].id}>
@@ -29,9 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<input
-		class="duration-300 cursor-pointer hover:bg-primary hover:border-primary mx-auto"
-		type="submit"
-		value="Submit"
-	/>
+	<button type="submit">
+		Submit
+	</button>
 </form>

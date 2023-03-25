@@ -4,8 +4,8 @@ const config = {
 		extend: {
 			colors: {
 				primary: {
-					light: '#A0FF1F',
-					dark: '#619e0f'
+					light: 'hsl(153 60% 53%)',
+					dark: 'hsl(153 60% 43%)'
 				}
 			},
 			fontFamily: {

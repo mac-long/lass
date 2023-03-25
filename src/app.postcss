@@ -13,10 +13,9 @@
 		@apply text-center py-32 overflow-hidden;
 	}
 
-	button {
+	button, .button {
 		@apply bg-primary-light border-primary-light px-4 py-2 rounded-md text-black transition-colors duration-300 ease-in-out;
-		@apply hover:text-primary-light;
-		@apply dark:hover:text-white dark:hover:bg-primary-dark;
+		@apply hover:bg-primary-dark;
 
 		&.link {
 			@apply bg-transparent border-none;
@@ -24,22 +23,28 @@
 	}
 
 	a {
-		@apply text-black transition-colors duration-300 ease-in-out;
-		@apply dark:text-white;
+		@apply transition-colors duration-300 ease-in-out;
 		@apply hover:text-primary-light;
-		@apply dark:hover:text-primary-dark;
+
+		&.button {
+			@apply hover:text-white;
+		}
 	}
 
-	input,
-	select {
-		@apply appearance-none border-2 border-gray-300 p-2 rounded-md;
+	form {
+		@apply max-w-xl mx-auto;
 
-		&[type='number'] {
-			@apply w-16;
-		}
-		&[type='submit'] {
-			@apply hover:bg-primary-light hover:border-primary-light;
-			@apply dark:hover:bg-primary-dark dark:hover:border-primary-dark;
+		.form-group {
+			@apply flex flex-col mb-4;
+
+			input,
+			select {
+				@apply appearance-none border-2 border-gray-300 p-2 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-primary-light focus:outline-none;
+
+				&[type='number'] {
+					@apply w-16;
+				}
+			}
 		}
 	}
 
@@ -48,7 +53,6 @@
 
 		thead {
 			@apply bg-primary-light;
-			@apply dark:bg-primary-dark;
 
 			th {
 				@apply px-6 py-3 text-left tracking-wider cursor-pointer select-none;

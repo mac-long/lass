@@ -1,19 +1,33 @@
 <script>
+	import { invalidate } from '$app/navigation';
 	import '@fontsource/poppins/700.css';
+	import { onMount } from 'svelte';
 	import '../app.postcss';
+
+	export let data, session;
+	$: ({ supabase } = data);
+
+	onMount(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth');
+		});
+
+		return () => subscription.unsubscribe();
+	});
 </script>
 
-
 <header class="w-screen flex items-center justify-between p-16">
-<h1 class="text-3xl">
-	<a href="/">League Tables</a>
-</h1>
+	<h1 class="text-3xl">
+		<a href="/">League Tables</a>
+	</h1>
 	<nav class="space-x-4">
-		<a href="/">Home</a>
-		<a href="/login">Login</a>
-		<a href="/register">
-			<button>Register</button>
-		</a>
+		{#if session}
+			<a class="button" href="/dahsboard">Dashboard</a>
+		{:else}
+			<a class="button" href="/get-started">Get Started</a>
+		{/if}
 	</nav>
 </header>
 <main>
