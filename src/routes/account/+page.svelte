@@ -24,7 +24,7 @@
 
 <form method="post" action="?/signout" use:enhance={handleSubmit}>
 	<div class="form-group">
-		<button class="button hover:text-white" type="submit" disabled={loading}>Sign Out</button>
+		<button class="hover:text-white button" type="submit" disabled={loading}>Sign Out</button>
 	</div>
 	<div class="form-group">
 		<button class="bg-red-500 hover:bg-red-600" formaction="?/delete">Delete Account</button>

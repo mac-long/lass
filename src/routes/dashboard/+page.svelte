@@ -11,17 +11,20 @@
 </script>
 
 <div class="relative mb-8">
-	<button class="absolute flex items-center space-x-1 top-0 right-48">
+	<button
+		class="flex absolute top-0 right-48 items-center space-x-1"
+		on:click={() => open.set(true)}
+	>
 		<Plus /> <span>New</span>
 	</button>
 	<h1>Welcome</h1>
-	<p class="max-w-lg mx-auto">
+	<p class="mx-auto max-w-lg">
 		This is your dashboard, click the new button to create a new league or select one of your
 		previouly created leagues below.
 	</p>
 </div>
 
-<div class="flex items-center flex-wrap justify-center mx-auto max-w-7xl">
+<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl">
 	{#each data.leagues as { id, name, color }}
 		<Card key={id} {id} {name} {color} />
 	{/each}
@@ -38,10 +41,8 @@
 			value=""
 		/>
 		<Input name="color" label="League Color" type="color" />
-		<div class="flex items-center justify-center space-x-2">
-			<button class="secondary" on:click={() => (this.form.reset(), open.set(false))}>
-				Cancel
-			</button>
+		<div class="flex justify-center items-center space-x-2">
+			<button class="secondary" on:click={() => open.set(false)}>Cancel</button>
 			<input type="submit" value="Create" />
 		</div>
 	</form>

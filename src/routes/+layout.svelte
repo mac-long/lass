@@ -19,7 +19,7 @@
 	});
 </script>
 
-<header class="w-screen flex items-center justify-between p-16">
+<header class="flex justify-between items-center p-16 w-screen">
 	<h1 class="text-3xl">
 		<a href="/">League Tables</a>
 	</h1>
@@ -35,6 +35,6 @@
 <main>
 	<slot />
 </main>
-<footer class="font-bold text-center py-8">
+<footer class="py-8 font-bold text-center">
 	<span>© {new Date().getFullYear()} <a href="/">League Tables</a></span>
 </footer>
