@@ -8,10 +8,10 @@
 
 <style lang="postcss">
 	.card {
-		@apply w-56 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md mr-4 mb-4;
+		@apply w-64 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md mr-4 mb-4;
 
 		h2 {
-			@apply text-2xl pl-4 pb-2;
+			@apply text-2xl p-2;
 		}
 	}
 </style>

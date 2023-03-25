@@ -5,7 +5,10 @@ export async function load({ locals: { getSession }, params }) {
 	const session = await getSession();
 
 	if (!session) {
-		throw error(401, 'Not logged in');
+		return {
+			status: 401,
+			redirect: '/login'
+		};
 	}
 
 	const { data: league, error } = await supabase
@@ -15,7 +18,11 @@ export async function load({ locals: { getSession }, params }) {
 		.single();
 
 	if (error) {
-		throw error(500, 'Error loading league');
+		console.log(error);
+		return {
+			status: 500,
+			redirect: '/dashboard'
+		};
 	}
 
 	if (league) {
@@ -24,3 +31,46 @@ export async function load({ locals: { getSession }, params }) {
 		};
 	}
 }
+
+export const actions = {
+	edit: async ({ request }) => {
+		const data = await request.formData();
+
+		const { data: league, error } = await supabase.from('leagues').update({
+			name: data.get('name'),
+			description: data.get('description'),
+			color: data.get('color')
+		});
+
+		if (error) {
+			console.log(error);
+			return {
+				status: 500,
+				error
+			};
+		} else {
+			return {
+				status: 200,
+				body: {
+					league
+				}
+			};
+		}
+	},
+	delete: async ({ params }) => {
+		const { error } = await supabase.from('leagues').delete().eq('id', params.league);
+
+		if (error) {
+			console.log(error);
+			return {
+				status: 500,
+				redirect: '/dashboard'
+			};
+		} else {
+			return {
+				status: 200,
+				redirect: '/dashboard'
+			};
+		}
+	}
+};

@@ -17,19 +17,26 @@
 
 <Container title="Edit League" {open}>
 	<form method="POST" action="?/edit">
-		<Input name="name" label="League Name" type="text" placeholder="Enter league name" value="" />
+		<Input
+			name="name"
+			label="League Name"
+			type="text"
+			placeholder="Enter league name"
+			value={league.name}
+		/>
 		<Input
 			name="description"
 			label="League Description"
 			type="textarea"
 			maxLength={255}
 			placeholder="Enter league description"
-			value=""
+			value={league.description}
 		/>
-		<Input name="color" label="League Color" type="color" />
+		<Input name="color" label="League Color" type="color" value={league.color} />
 		<div class="flex justify-center items-center space-x-2">
 			<button class="secondary" on:click={() => open.set(false)}>Cancel</button>
-			<input type="submit" value="Create" />
+			<input class="delete" type="submit" formaction="?/delete" value="Delete" />
+			<input type="submit" value="Update" />
 		</div>
 	</form>
 </Container>
