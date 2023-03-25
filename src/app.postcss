@@ -12,9 +12,22 @@
 	main {
 		@apply text-center py-32 overflow-hidden;
 	}
-	
+
 	button {
-		@apply hover:text-primary-light dark:hover:text-primary-dark;
+		@apply bg-primary-light border-primary-light px-4 py-2 rounded-md text-black transition-colors duration-300 ease-in-out;
+		@apply hover:text-primary-light;
+		@apply dark:hover:text-white dark:hover:bg-primary-dark;
+
+		&.link {
+			@apply bg-transparent border-none;
+		}
+	}
+
+	a {
+		@apply text-black transition-colors duration-300 ease-in-out;
+		@apply dark:text-white;
+		@apply hover:text-primary-light;
+		@apply dark:hover:text-primary-dark;
 	}
 
 	input,
@@ -25,7 +38,7 @@
 			@apply w-16;
 		}
 		&[type='submit'] {
-			@apply hover:bg-primary-light hover:border-primary-light; 
+			@apply hover:bg-primary-light hover:border-primary-light;
 			@apply dark:hover:bg-primary-dark dark:hover:border-primary-dark;
 		}
 	}

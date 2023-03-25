@@ -1,10 +1,8 @@
 <script>
-	import '../app.postcss';
-	import '@fontsource/poppins/700.css';
-	import { configVisibile, teamsTable } from '$lib/store';
+	import Config from '$lib/components/config.svelte';
 	import Header from '$lib/components/header.svelte';
 	import Table from '$lib/components/table.svelte';
-	import Config from '$lib/components/config.svelte';
+	import { configVisibile, teamsTable } from '$lib/store';
 
 	export let data;
 
