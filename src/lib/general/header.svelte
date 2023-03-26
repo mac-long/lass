@@ -1,12 +1,13 @@
 <script>
 	import { Settings } from '$lib/icons/icons';
-	import { dashboardView } from '$lib/store';
+	import { dashboardView, visibleSeason } from '$lib/store';
+
 
 	export let actions = [],
 		title,
 		description,
 		dashboard = false,
-		season = 1;
+		seasons;
 </script>
 
 <div class="relative mb-8">
@@ -30,14 +31,17 @@
 	</p>
 
 	{#if dashboard}
-		<!-- <div class="flex flex-col">
-			<span>View Season</span>
-			<select on>
-				{#each seasons as season}
-					<option value={season} >Season {season}</option>
-				{/each}
-			</select>
-		</div> -->
+		<div class="flex flex-col items-center">
+			<h1>Fixtures</h1>
+			<div class="form-group items-center">
+				<span class="font-bold">View Season</span>
+				<select bind:value={$visibleSeason}>
+					{#each seasons as season}
+						<option value={season.id}>{season.number}</option>
+					{/each}
+				</select>
+			</div>
+		</div>
 		<div class="flex items-center justify-center space-x-2 mx-auto pt-8">
 			<button
 				class="link"

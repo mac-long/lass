@@ -14,6 +14,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Account | Lass</title>
+</svelte:head>
+
 <h1>Account</h1>
 <form class="max-w-xl mx-auto">
 	<div class="form-group">

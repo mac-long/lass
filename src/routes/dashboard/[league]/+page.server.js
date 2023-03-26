@@ -27,7 +27,12 @@ export async function load({ locals: { getSession }, params }) {
 		.select('*')
 		.eq('league', params.league);
 
-	if (leagueError || teamsError || fixturesError) {
+	const { data: seasons, error: seasonsError } = await supabase
+		.from('seasons')
+		.select('*')
+		.eq('league', params.league);
+
+	if (leagueError || teamsError || fixturesError || seasonsError) {
 		return {
 			status: 500,
 			redirect: '/dashboard'
@@ -38,7 +43,8 @@ export async function load({ locals: { getSession }, params }) {
 		return {
 			league,
 			teams,
-			fixtures
+			fixtures,
+			seasons
 		};
 	}
 }
@@ -158,7 +164,6 @@ export const actions = {
 		});
 
 		if (error) {
-			console.log(error);
 			return {
 				status: 500,
 				redirect: `/dashboard/${params.league}`

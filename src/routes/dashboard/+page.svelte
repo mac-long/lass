@@ -10,6 +10,10 @@
 	const open = writable(false);
 </script>
 
+<svelte:head>
+	<title>Dashboard | Lass</title>
+</svelte:head>
+
 <Header
 	actions={[{ label: 'New', onClick: () => open.set(true) }]}
 	title="Leagues"

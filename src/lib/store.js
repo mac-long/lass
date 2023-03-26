@@ -15,4 +15,5 @@ export const headings = writable([
 	sortFilter = writable({ name: 'pts', order: 'desc' }),
 	teamsTable = writable([]),
 	dashboardView = writable('table'),
-	visibleSeason = writable(1);
+	visibleSeason = writable(1),
+	currentSeason = writable(1);

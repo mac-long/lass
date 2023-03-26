@@ -3,12 +3,13 @@
 	import Input from '$lib/forms/input.svelte';
 	import Header from '$lib/general/header.svelte';
 	import { Edit } from '$lib/icons/icons';
+	import Fixtures from '$lib/leagues/fixtures.svelte';
 	import Table from '$lib/leagues/table.svelte';
-	import { dashboardView, teamsTable, visibleSeason } from '$lib/store';
+	import { currentSeason, dashboardView, teamsTable, visibleSeason } from '$lib/store';
 	import { writable } from 'svelte/store';
 
 	export let data;
-	const { league, teams, fixtures } = data;
+	const { league, teams, fixtures, seasons } = data;
 	const editOpen = writable(false),
 		teamsOpen = writable(false),
 		fixtureOpen = writable(false);
@@ -22,10 +23,13 @@
 		})
 	);
 
-	const getTeamName = (id) => {
-		return teams.find((team) => team.id === id).name;
-	};
+	visibleSeason.set(league.currentSeason);
+	currentSeason.set(league.currentSeason);
 </script>
+
+<svelte:head>
+	<title>{league.name} | Lass</title>
+</svelte:head>
 
 <Header
 	actions={[
@@ -36,31 +40,13 @@
 	title={league.name}
 	description={league.description}
 	dashboard
+	{seasons}
 />
 
 {#if $dashboardView === 'table'}
-	<Table />
+	<Table {seasons} />
 {:else}
-	<div class="flex flex-col items-center">
-		<h1>Fixtures</h1>
-		<div class="form-group items-center">
-			<span class="font-bold">View Season</span>
-			<input type="number" value={$visibleSeason} />
-		</div>
-	</div>
-	{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
-		<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl py-16">
-			<div class="bg-white shadow-md rounded-lg p-4 text-black flex items-center">
-				<span class="flex flex-col items-center space-y-4">
-					{getTeamName(fixture.home)}<span class="font-bold text-2xl">{fixture.awayScore}</span>
-					<span class="font-bold text-4xl mx-2">vs</span>
-					<span class="flex flex-col-reverse items-center">
-						{getTeamName(fixture.away)}<span class="font-bold text-2xl">{fixture.awayScore}</span>
-					</span>
-				</span>
-			</div>
-		</div>
-	{/each}
+	<Fixtures {fixtures} {teams} />
 {/if}
 
 <Container title="Edit League" open={editOpen}>
@@ -83,6 +69,7 @@
 		<Input name="color" label="League Color" type="color" value={league.color} />
 		<div class="form-group">
 			<button class="secondary" on:click={() => editOpen.set(false)}>Cancel</button>
+			<input class="secondary" type="submit" formaction="?/newSeason" value="New Season" />
 			<input class="delete" type="submit" formaction="?/delete" value="Delete" />
 			<input type="submit" value="Update" />
 		</div>

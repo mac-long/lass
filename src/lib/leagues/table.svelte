@@ -1,5 +1,21 @@
 <script>
-	import { headings, sortFilter, teamsTable } from '$lib/store';
+	import { currentSeason, headings, sortFilter, teamsTable, visibleSeason } from '$lib/store';
+	export let seasons;
+
+	const sortTeams = (teams) => {
+		teams.sort((a, b) => {
+			if (heading.toLowerCase() === 'pts') {
+				if (a.pts === b.pts) {
+					return b.gd - a.gd;
+				}
+				return $sortFilter.order === 'asc' ? a.pts - b.pts : b.pts - a.pts;
+			} else {
+				return $sortFilter.order === 'asc'
+					? a[heading.toLowerCase()] - b[heading.toLowerCase()]
+					: b[heading.toLowerCase()] - a[heading.toLowerCase()];
+			}
+		});
+	};
 
 	const handleHeadingClick = (heading) => {
 		sortFilter.set({
@@ -11,23 +27,11 @@
 						: 'asc'
 					: 'desc'
 		});
-		teamsTable.set(
-			$teamsTable.sort((a, b) => {
-        // if heading is 'pts' then sort by points then goal difference
-        if (heading.toLowerCase() === 'pts') {
-          if (a.pts === b.pts) {
-            return b.gd - a.gd;
-          }
-          return $sortFilter.order === 'asc'
-            ? a.pts - b.pts
-            : b.pts - a.pts;
-        } else {
-          return $sortFilter.order === 'asc'
-            ? a[heading.toLowerCase()] - b[heading.toLowerCase()]
-            : b[heading.toLowerCase()] - a[heading.toLowerCase()];
-        }
-			})
-		);
+		if (currentSeason === $visibleSeason) {
+			teamsTable.set(sortTeams($teamsTable));
+		} else {
+			teamsTable.set(sortTeams(seasons[$currentSeason].table));
+		}
 	};
 </script>
 

@@ -21,7 +21,7 @@
 
 <header class="flex justify-between items-center p-16 w-screen">
 	<h1 class="text-3xl">
-		<a href="/">League Tables</a>
+		<a href="/">Lass</a>
 	</h1>
 	<nav class="space-x-4">
 		{#if data.session}
@@ -36,5 +36,5 @@
 	<slot />
 </main>
 <footer class="py-8 font-bold text-center">
-	<span>© {new Date().getFullYear()} <a href="/">League Tables</a></span>
+	<span>© {new Date().getFullYear()} <a href="/">Lass</a></span>
 </footer>
