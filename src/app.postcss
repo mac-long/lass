@@ -5,28 +5,93 @@
 @layer base {
 	html,
 	body {
-		@apply font-sans text-black;
+		@apply font-sans text-black min-h-screen flex flex-col;
 		@apply dark:bg-slate-700 dark:text-white;
 	}
 
 	main {
-		@apply text-center py-32 overflow-hidden;
-	}
-	
-	button {
-		@apply hover:text-primary-light dark:hover:text-primary-dark;
+		@apply text-center  overflow-hidden flex-grow flex-1;
 	}
 
-	input,
-	select {
-		@apply appearance-none border-2 border-gray-300 p-2 rounded-md;
+	h1 {
+		@apply text-5xl mb-8 font-bold;
+	}
 
-		&[type='number'] {
-			@apply w-16;
+	a {
+		@apply font-bold;
+		@apply hover:text-emerald-400;
+	}
+
+	p {
+		@apply font-normal;
+	}
+
+	button,
+	.button,
+	input[type='submit'] {
+		@apply bg-emerald-400 border-none px-4 py-2 font-bold rounded-md text-black transition-colors duration-300 ease-in-out cursor-pointer;
+		@apply hover:bg-emerald-500 hover:text-white;
+
+		&.link {
+			@apply bg-transparent text-white;
+			@apply hover:text-emerald-500;
 		}
-		&[type='submit'] {
-			@apply hover:bg-primary-light hover:border-primary-light; 
-			@apply dark:hover:bg-primary-dark dark:hover:border-primary-dark;
+
+		&.secondary {
+			@apply bg-white border-gray-300 text-black;
+			@apply hover:bg-indigo-500;
+		}
+
+		&.delete {
+			@apply bg-red-500;
+			@apply hover:bg-red-600;
+		}
+
+		&.circle {
+			@apply w-8 h-8 rounded-full flex items-center justify-center;
+		}
+
+		&.edit {
+			@apply bg-transparent p-0;
+			@apply hover:text-emerald-500;
+		}
+	}
+
+	.teams {
+		@apply max-w-none flex flex-col items-start space-y-2;
+	}
+
+	.actions {
+		@apply flex items-center space-x-2 mb-2;
+	}
+
+	.form-group {
+		@apply flex flex-col mb-4 space-y-2;
+
+		&.team {
+			@apply flex-row space-x-2 space-y-0;
+		}
+
+		label {
+			@apply font-bold;
+		}
+
+		input,
+		select,
+		textarea {
+			@apply text-center appearance-none border-2 border-gray-300 p-2 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-emerald-400 focus:outline-none;
+			text-align-last: center;
+
+			&[type='number'] {
+				@apply w-16;
+			}
+			&[type='color'] {
+				@apply w-36 p-4 mx-auto;
+			}
+		}
+
+		textarea {
+			@apply h-32 resize-none;
 		}
 	}
 
@@ -34,8 +99,7 @@
 		@apply uppercase font-bold max-w-3xl mx-auto;
 
 		thead {
-			@apply bg-primary-light;
-			@apply dark:bg-primary-dark;
+			@apply bg-emerald-400;
 
 			th {
 				@apply px-6 py-3 text-left tracking-wider cursor-pointer select-none;

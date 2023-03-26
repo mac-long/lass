@@ -11,15 +11,22 @@
 						: 'asc'
 					: 'desc'
 		});
-
 		teamsTable.set(
 			$teamsTable.sort((a, b) => {
 				return $sortFilter.order === 'asc'
-					? a[heading.toLowerCase()] - b[heading.toLowerCase()]
-					: b[heading.toLowerCase()] - a[heading.toLowerCase()];
+					? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+					: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
 			})
 		);
 	};
+
+	teamsTable.set(
+		$teamsTable.sort((a, b) => {
+			return $sortFilter.order === 'asc'
+				? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+				: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
+		})
+	);
 </script>
 
 <div class="overflow-x-scroll space-y-4">
@@ -79,7 +86,11 @@
 				<tr>
 					<td>{i + 1}</td>
 					<td class="flex items-center space-x-8">
-						<img class="w-5 max-h-6" src={team.image} alt={`${team.name} logo`} />
+						{#if team.img}<img
+								class="w-5 max-h-6"
+								src={team.image}
+								alt={`${team.name} logo`}
+							/>{/if}
 						<span>
 							{team.name}
 							<span class="text-xs">
