@@ -13,7 +13,7 @@
 		if (Number(e.target.value) !== $currentSeason) {
 			teamsTable.set(
 				seasons
-					.find((season) => season.id === $visibleSeason)
+					.find((season) => season.number === $visibleSeason)
 					.table.sort((a, b) => {
 						return $sortFilter.order === 'asc'
 							? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
@@ -32,7 +32,7 @@
 	};
 </script>
 
-<div class="relative mb-8">
+<div class="relative">
 	<div class="flex absolute top-0 right-48 items-center space-x-3">
 		{#each actions as action}
 			<button
@@ -53,15 +53,16 @@
 	</p>
 
 	{#if dashboard}
-		<div class="flex flex-col items-center">
-			<h1>Fixtures</h1>
+		<div class="flex flex-col items-center py-4">
 			<div class="items-center form-group">
-				<span class="font-bold">View Season</span>
-				<select bind:value={$visibleSeason} on:change={changeSeason}>
-					{#each seasons as season}
-						<option value={season.id}>{season.number}</option>
-					{/each}
-				</select>
+				{#if seasons.length > 1}
+					<span class="font-bold">View Season</span>
+					<select bind:value={$visibleSeason} on:change={changeSeason}>
+						{#each seasons as season}
+							<option value={season.number}>{season.number}</option>
+						{/each}
+					</select>
+				{/if}
 			</div>
 		</div>
 		<div class="flex justify-center items-center pt-8 mx-auto space-x-2">

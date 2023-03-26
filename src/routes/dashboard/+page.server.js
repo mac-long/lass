@@ -14,14 +14,23 @@ export const actions = {
 		const session = await getSession();
 		const data = await request.formData();
 
-		const { data: leagues, error } = await supabase.from('leagues').insert({
-			user: session.user.id,
-			name: data.get('name'),
-			description: data.get('description'),
-			color: data.get('color')
+		const { data: leagues, error } = await supabase
+			.from('leagues')
+			.insert({
+				user: session.user.id,
+				name: data.get('name'),
+				description: data.get('description'),
+				color: data.get('color'),
+				currentSeason: 1
+			})
+			.select('*');
+
+		const { data: season, error: seasonError } = await supabase.from('seasons').insert({
+			league: leagues[0].id,
+			number: 1
 		});
 
-		if (error) {
+		if (error || seasonError) {
 			return {
 				status: 500,
 				error
@@ -30,7 +39,8 @@ export const actions = {
 			return {
 				status: 200,
 				body: {
-					leagues
+					leagues,
+					season
 				}
 			};
 		}

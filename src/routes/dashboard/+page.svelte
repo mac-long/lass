@@ -22,9 +22,11 @@
 />
 
 <div class="flex flex-wrap justify-center items-center py-16 mx-auto max-w-7xl">
-	{#each data.leagues as { id, name, color }}
-		<Card {id} {name} {color} />
-	{/each}
+	{#if data.leagues.length !== 0}
+		{#each data.leagues as { id, name, color }}
+			<Card {id} {name} {color} />
+		{/each}
+	{/if}
 </div>
 
 <Container title="New League" {open}>

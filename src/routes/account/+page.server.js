@@ -17,12 +17,5 @@ export const actions = {
 			await supabase.auth.signOut();
 			throw redirect(303, '/');
 		}
-	},
-	delete: async ({ locals: { supabase, getSession } }) => {
-		const session = await getSession();
-		if (session) {
-			await supabase.auth.api.deleteUser(session.access_token);
-			throw redirect(303, '/');
-		}
 	}
 };
