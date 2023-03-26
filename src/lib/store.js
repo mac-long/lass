@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
 
-export const configVisibile = writable(false);
 export const headings = writable([
 	'Pos',
 	'Club',

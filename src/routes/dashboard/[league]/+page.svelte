@@ -3,12 +3,23 @@
 	import Input from '$lib/forms/input.svelte';
 	import Header from '$lib/general/header.svelte';
 	import { Edit } from '$lib/icons/icons';
+	import Table from '$lib/leagues/table.svelte';
+	import { teamsTable } from '$lib/store';
 	import { writable } from 'svelte/store';
 
 	export let data;
 	const { league, teams } = data;
 	const editOpen = writable(false);
 	const teamsOpen = writable(false);
+	// Sort teams by points then gd
+	teamsTable.set(
+		teams.sort((a, b) => {
+			if (a.points === b.points) {
+				return b.gd - a.gd;
+			}
+			return b.points - a.points;
+		})
+	);
 </script>
 
 <Header
@@ -19,6 +30,8 @@
 	title={league.name}
 	description={league.description}
 />
+
+<Table />
 
 <Container title="Edit League" open={editOpen}>
 	<form method="POST" action="?/edit">
