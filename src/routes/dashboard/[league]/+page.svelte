@@ -45,7 +45,7 @@
 />
 
 {#if $dashboardView === 'table'}
-	<Table  />
+	<Table />
 {:else}
 	<Fixtures {fixtures} {teams} />
 {/if}
