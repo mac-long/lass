@@ -4,14 +4,15 @@
 	import Header from '$lib/general/header.svelte';
 	import { Edit } from '$lib/icons/icons';
 	import Table from '$lib/leagues/table.svelte';
-	import { teamsTable } from '$lib/store';
+	import { dashboardView, teamsTable, visibleSeason } from '$lib/store';
 	import { writable } from 'svelte/store';
 
 	export let data;
-	const { league, teams } = data;
-	const editOpen = writable(false);
-	const teamsOpen = writable(false);
-	// Sort teams by points then gd
+	const { league, teams, fixtures } = data;
+	const editOpen = writable(false),
+		teamsOpen = writable(false),
+		fixtureOpen = writable(false);
+
 	teamsTable.set(
 		teams.sort((a, b) => {
 			if (a.points === b.points) {
@@ -20,18 +21,40 @@
 			return b.points - a.points;
 		})
 	);
+
+	console.log(fixtures);
 </script>
 
 <Header
 	actions={[
-		{ label: 'Settings', onClick: () => editOpen.set(true), primary: false },
-		{ label: 'Teams', onClick: () => teamsOpen.set(true), primary: true }
+		{ label: 'Settings', onClick: () => editOpen.set(true), type: 'settings' },
+		{ label: 'Teams', onClick: () => teamsOpen.set(true), type: 'secondary' },
+		{ label: 'Add Fixture', onClick: () => fixtureOpen.set(true), type: 'primary' }
 	]}
 	title={league.name}
 	description={league.description}
+	dashboard
 />
 
-<Table />
+{#if $dashboardView === 'table'}
+	<Table />
+{:else}
+	<div class="flex flex-col items-center">
+		<h1>Fixtures</h1>
+		<div class="form-group items-center">
+			<span class="font-bold">View Season</span>
+			<input type="number" value={$visibleSeason} />
+		</div>
+	</div>
+	{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
+		<div class="flex flex-col items-center">
+			<h1>{fixture.home}</h1>
+			<span>{fixture.homeScore}</span>
+			<h1>{fixture.away}</h1>
+			<span>{fixture.awayScore}</span>
+		</div>
+	{/each}
+{/if}
 
 <Container title="Edit League" open={editOpen}>
 	<form method="POST" action="?/edit">
@@ -51,7 +74,7 @@
 			value={league.description}
 		/>
 		<Input name="color" label="League Color" type="color" value={league.color} />
-		<div class="flex justify-center items-center space-x-2">
+		<div class="form-group">
 			<button class="secondary" on:click={() => editOpen.set(false)}>Cancel</button>
 			<input class="delete" type="submit" formaction="?/delete" value="Delete" />
 			<input type="submit" value="Update" />
@@ -116,5 +139,40 @@
 				</div>
 			</div>
 		</form>
-	</div></Container
->
+		<button class="secondary mx-auto" on:click={() => teamsOpen.set(false)}>Close</button>
+	</div>
+</Container>
+
+<Container title="Add Fixture" open={fixtureOpen}>
+	<form class="flex flex-col mx-auto space-y-4 py-4" method="POST" action="?/addFixture">
+		<div class="flex flex-col justify-center items-center space-y-4">
+			<div class="form-group">
+				<h3 class="text-xl">Home</h3>
+				<div class="flex items-center space-x-2">
+					<select name="home" defaultValue={$teamsTable[0].id}>
+						{#each $teamsTable as team}
+							<option value={team.id}>{team.name}</option>
+						{/each}
+					</select>
+					<input name="homeScore" type="number" defaultValue={0} />
+				</div>
+			</div>
+			<div class="form-group">
+				<h3 class="text-xl">Away</h3>
+				<div class="flex items-center space-x-2">
+					<select name="away" defaultValue={$teamsTable[0].id}>
+						{#each $teamsTable as team}
+							<option value={team.id}>{team.name}</option>
+						{/each}
+					</select>
+					<input name="awayScore" type="number" defaultValue={0} />
+					<input name="season" type="hidden" value={league.season} />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="secondary" on:click={() => fixtureOpen.set(false)}>Cancel</button>
+			<input type="submit" value="Submit" />
+		</div>
+	</form>
+</Container>

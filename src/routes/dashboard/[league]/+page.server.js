@@ -22,7 +22,12 @@ export async function load({ locals: { getSession }, params }) {
 		.select('*')
 		.eq('league', params.league);
 
-	if (leagueError || teamsError) {
+	const { data: fixtures, error: fixturesError } = await supabase
+		.from('fixtures')
+		.select('*')
+		.eq('league', params.league);
+
+	if (leagueError || teamsError || fixturesError) {
 		return {
 			status: 500,
 			redirect: '/dashboard'
@@ -32,7 +37,8 @@ export async function load({ locals: { getSession }, params }) {
 	if (league && teams) {
 		return {
 			league,
-			teams
+			teams,
+			fixtures
 		};
 	}
 }
@@ -137,6 +143,30 @@ export const actions = {
 		return {
 			status: 200,
 			redirect: `/dashboard/${params.league}`
+		};
+	},
+	addFixture: async ({ request, params }) => {
+		const data = await request.formData();
+
+		const { data: fixture, error } = await supabase.from('fixtures').insert({
+			home: data.get('home'),
+			away: data.get('away'),
+			homeScore: data.get('homeScore'),
+			awayScore: data.get('awayScore'),
+			league: params.league,
+			season: data.get('season')
+		});
+
+		if (error) {
+			return {
+				status: 500,
+				redirect: `/dashboard/${params.league}`
+			};
+		}
+
+		return {
+			status: 200,
+			data: fixture
 		};
 	}
 };

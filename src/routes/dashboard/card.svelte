@@ -2,7 +2,7 @@
 	export let id, name, color;
 </script>
 
-<a class='card' href={`/dashboard/${id}`} style={`background-color: ${color}`}>
+<a class="card" href={`/dashboard/${id}`} style={`background-color: ${color}`}>
 	<h2>{name}</h2>
 </a>
 

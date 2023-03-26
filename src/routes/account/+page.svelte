@@ -15,14 +15,14 @@
 </script>
 
 <h1>Account</h1>
-<form>
+<form class="max-w-xl mx-auto">
 	<div class="form-group">
 		<label for="email">Logged in As</label>
 		<input class="text-center" type="text" value={session.user.email} disabled />
 	</div>
 </form>
 
-<form method="post" action="?/signout" use:enhance={handleSubmit}>
+<form class="max-w-xl mx-auto" method="post" action="?/signout" use:enhance={handleSubmit}>
 	<div class="form-group">
 		<button class="hover:text-white button" type="submit" disabled={loading}>Sign Out</button>
 	</div>
