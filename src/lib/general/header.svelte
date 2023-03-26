@@ -32,8 +32,10 @@
 	};
 </script>
 
-<div class="relative">
-	<div class="flex absolute top-0 right-48 items-center space-x-3">
+<div class="relative flex flex-col-reverse item-center justify-center sm:block">
+	<div
+		class="flex justify-center sm:justify-start sm:absolute top-0 right-48 items-center space-x-3 my-4"
+	>
 		{#each actions as action}
 			<button
 				class={`flex items-center space-x-1 ${action.type === 'primary' ? 'primary' : 'secondary'}`}
@@ -47,35 +49,37 @@
 			</button>
 		{/each}
 	</div>
-	<h1>{title}</h1>
-	<p class="mx-auto max-w-lg">
-		{description}
-	</p>
+	<div>
+		<h1>{title}</h1>
+		<p class="mx-auto max-w-lg py-4">
+			{description}
+		</p>
 
-	{#if dashboard}
-		<div class="flex flex-col items-center py-4">
-			<div class="items-center form-group">
-				{#if seasons.length > 1}
-					<span class="font-bold">View Season</span>
-					<select bind:value={$visibleSeason} on:change={changeSeason}>
-						{#each seasons as season}
-							<option value={season.number}>{season.number}</option>
-						{/each}
-					</select>
-				{/if}
+		{#if dashboard}
+			<div class="flex flex-col items-center py-4">
+				<div class="items-center form-group">
+					{#if seasons.length > 1}
+						<span class="font-bold">View Season</span>
+						<select bind:value={$visibleSeason} on:change={changeSeason}>
+							{#each seasons as season}
+								<option value={season.number}>{season.number}</option>
+							{/each}
+						</select>
+					{/if}
+				</div>
 			</div>
-		</div>
-		<div class="flex justify-center items-center pt-8 mx-auto space-x-2">
-			<button
-				class="link"
-				class:underline={$dashboardView === 'table'}
-				on:click={() => dashboardView.set('table')}>Table</button
-			>
-			<button
-				class="link"
-				class:underline={$dashboardView === 'fixtures'}
-				on:click={() => dashboardView.set('fixtures')}>Fixtures</button
-			>
-		</div>
-	{/if}
+			<div class="flex justify-center items-center pt-8 mx-auto space-x-2">
+				<button
+					class="link"
+					class:underline={$dashboardView === 'table'}
+					on:click={() => dashboardView.set('table')}>Table</button
+				>
+				<button
+					class="link"
+					class:underline={$dashboardView === 'fixtures'}
+					on:click={() => dashboardView.set('fixtures')}>Fixtures</button
+				>
+			</div>
+		{/if}
+	</div>
 </div>
