@@ -41,10 +41,11 @@
 	description={league.description}
 	dashboard
 	{seasons}
+	{teams}
 />
 
 {#if $dashboardView === 'table'}
-	<Table {seasons} />
+	<Table  />
 {:else}
 	<Fixtures {fixtures} {teams} />
 {/if}

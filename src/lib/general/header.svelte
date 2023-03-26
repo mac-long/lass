@@ -1,13 +1,35 @@
 <script>
 	import { Settings } from '$lib/icons/icons';
-	import { dashboardView, visibleSeason } from '$lib/store';
-
+	import { currentSeason, dashboardView, sortFilter, teamsTable, visibleSeason } from '$lib/store';
 
 	export let actions = [],
 		title,
 		description,
 		dashboard = false,
-		seasons;
+		seasons,
+		teams;
+
+	const changeSeason = (e) => {
+		if (Number(e.target.value) !== $currentSeason) {
+			teamsTable.set(
+				seasons
+					.find((season) => season.id === $visibleSeason)
+					.table.sort((a, b) => {
+						return $sortFilter.order === 'asc'
+							? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+							: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
+					})
+			);
+		} else {
+			teamsTable.set(
+				teams.sort((a, b) => {
+					return $sortFilter.order === 'asc'
+						? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+						: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
+				})
+			);
+		}
+	};
 </script>
 
 <div class="relative mb-8">
@@ -35,7 +57,7 @@
 			<h1>Fixtures</h1>
 			<div class="items-center form-group">
 				<span class="font-bold">View Season</span>
-				<select bind:value={$visibleSeason}>
+				<select bind:value={$visibleSeason} on:change={changeSeason}>
 					{#each seasons as season}
 						<option value={season.id}>{season.number}</option>
 					{/each}

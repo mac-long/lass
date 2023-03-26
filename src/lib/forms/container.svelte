@@ -1,5 +1,5 @@
 <script>
-	export let title, open, lg;
+	export let title, open, lg = false;
 </script>
 
 {#if $open}
