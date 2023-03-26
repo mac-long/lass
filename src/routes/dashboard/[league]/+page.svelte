@@ -22,7 +22,9 @@
 		})
 	);
 
-	console.log(fixtures);
+	const getTeamName = (id) => {
+		return teams.find((team) => team.id === id).name;
+	};
 </script>
 
 <Header
@@ -47,11 +49,16 @@
 		</div>
 	</div>
 	{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
-		<div class="flex flex-col items-center">
-			<h1>{fixture.home}</h1>
-			<span>{fixture.homeScore}</span>
-			<h1>{fixture.away}</h1>
-			<span>{fixture.awayScore}</span>
+		<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl py-16">
+			<div class="bg-white shadow-md rounded-lg p-4 text-black flex items-center">
+				<span class="flex flex-col items-center space-y-4">
+					{getTeamName(fixture.home)}<span class="font-bold text-2xl">{fixture.awayScore}</span>
+					<span class="font-bold text-4xl mx-2">vs</span>
+					<span class="flex flex-col-reverse items-center">
+						{getTeamName(fixture.away)}<span class="font-bold text-2xl">{fixture.awayScore}</span>
+					</span>
+				</span>
+			</div>
 		</div>
 	{/each}
 {/if}
@@ -166,7 +173,7 @@
 						{/each}
 					</select>
 					<input name="awayScore" type="number" defaultValue={0} />
-					<input name="season" type="hidden" value={league.season} />
+					<input name="season" type="hidden" value={league.currentSeason} />
 				</div>
 			</div>
 		</div>
