@@ -32,7 +32,7 @@
 	};
 </script>
 
-<div class="relative flex flex-col-reverse item-center justify-center sm:block">
+<div class="relative flex flex-col-reverse item-center justify-center px-8 sm:px-0 sm:block">
 	<div
 		class="flex justify-center sm:justify-start sm:absolute top-0 right-48 items-center space-x-3 my-4"
 	>
