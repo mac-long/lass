@@ -21,7 +21,7 @@
 		previouly created leagues below."
 />
 
-<div class="flex flex-wrap justify-center items-center mx-auto max-w-7xl py-16">
+<div class="flex flex-wrap justify-center items-center py-16 mx-auto max-w-7xl">
 	{#each data.leagues as { id, name, color }}
 		<Card {id} {name} {color} />
 	{/each}

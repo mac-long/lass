@@ -108,7 +108,7 @@
 			</form>
 		{/each}
 		<form method="POST" action="?/teams">
-			<div class="flex items-center space-x-2 m-0 p-0">
+			<div class="flex items-center p-0 m-0 space-x-2">
 				<Input
 					name="name"
 					label="Team Name"
@@ -125,7 +125,7 @@
 				/>
 				<div class="actions">
 					<button
-						class="secondary text-black w-8 h-8 rounded-full flex items-center justify-center m-0"
+						class="flex justify-center items-center m-0 w-8 h-8 text-black rounded-full secondary"
 						formaction="?/addTeam"
 					>
 						+
@@ -133,12 +133,12 @@
 				</div>
 			</div>
 		</form>
-		<button class="secondary mx-auto" on:click={() => teamsOpen.set(false)}>Close</button>
+		<button class="mx-auto secondary" on:click={() => teamsOpen.set(false)}>Close</button>
 	</div>
 </Container>
 
 <Container title="Add Fixture" open={fixtureOpen}>
-	<form class="flex flex-col mx-auto space-y-4 py-4" method="POST" action="?/addFixture">
+	<form class="flex flex-col py-4 mx-auto space-y-4" method="POST" action="?/addFixture">
 		<div class="flex flex-col justify-center items-center space-y-4">
 			<div class="form-group">
 				<h3 class="text-xl">Home</h3>

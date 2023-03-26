@@ -33,7 +33,7 @@
 	{#if dashboard}
 		<div class="flex flex-col items-center">
 			<h1>Fixtures</h1>
-			<div class="form-group items-center">
+			<div class="items-center form-group">
 				<span class="font-bold">View Season</span>
 				<select bind:value={$visibleSeason}>
 					{#each seasons as season}
@@ -42,7 +42,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="flex items-center justify-center space-x-2 mx-auto pt-8">
+		<div class="flex justify-center items-center pt-8 mx-auto space-x-2">
 			<button
 				class="link"
 				class:underline={$dashboardView === 'table'}
