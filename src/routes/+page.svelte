@@ -14,7 +14,7 @@
 	description="Lass (Leagues as a Service) is a platform for creating and managing league tables."
 />
 
-<Container title="Teams" {open} lg>
+<!-- <Container title="Teams" {open} lg>
 	<div class="teams">
 		{#each teams as team}
 			<form method="POST" action="?/editTeam">
@@ -73,9 +73,7 @@
 		</form>
 		<button class="mx-auto secondary" on:click={() => open.set(false)}>Close</button>
 	</div>
-</Container>
-description="Lass (Leagues as a Service) is a platform for creating and managing league tables. Currently
-utilises the football league scoring method, possible other sports/games to be added later." />
+</Container> -->
 <div class="flex justify-center items-center space-x-2">
 	<a class="button secondary" href="https://github.com/mac-long/league-tables" target="_blank"
 		>Contribute</a
