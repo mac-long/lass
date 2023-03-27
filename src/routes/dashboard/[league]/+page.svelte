@@ -77,7 +77,7 @@
 	</form>
 </Container>
 
-<Container title="Teams" {teamsOpen} lg>
+<Container title="Teams" open={teamsOpen} lg>
 	<div class="teams">
 		{#each teams as team}
 			<form method="POST" action="?/editTeam">
