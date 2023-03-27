@@ -77,11 +77,11 @@
 	</form>
 </Container>
 
-<Container title="Teams" open={teamsOpen} lg>
+<Container title="Teams" {teamsOpen} lg>
 	<div class="teams">
 		{#each teams as team}
 			<form method="POST" action="?/editTeam">
-				<div class="flex items-center space-x-2">
+				<div class="flex flex-col sm:flex-row items-center space-x-2">
 					<input type="hidden" name="id" value={team.id} />
 					<Input
 						name="name"
@@ -109,7 +109,7 @@
 			</form>
 		{/each}
 		<form method="POST" action="?/teams">
-			<div class="flex items-center p-0 m-0 space-x-2">
+			<div class="flex flex-col sm:flex-row items-center p-0 m-0 space-x-2">
 				<Input
 					name="name"
 					label="Team Name"
