@@ -7,6 +7,6 @@
 	{#if type === 'textarea'}
 		<textarea {name} {placeholder} {value} {maxLength} on:change={(e) => (value = e.target.value)} />
 	{:else}
-		<input {type} {name} {placeholder} {value} on:change={(e) => (value = e.target.value)} />
+		<input class="max-w-[80vw] sm:max-w-none" {type} {name} {placeholder} {value} on:change={(e) => (value = e.target.value)} />
 	{/if}
 </div>
