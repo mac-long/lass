@@ -6,6 +6,7 @@
 	import { writable } from 'svelte/store';
 	const teams = [];
 	const open = writable(true);
+	export let data;
 </script>
 
 <Header
@@ -19,29 +20,29 @@
 			<form method="POST" action="?/editTeam">
 				<div class="flex flex-col sm:flex-row items-center space-x-2">
 					<input type="hidden" name="id" value={team.id} />
-						<Input
-							name="name"
-							label="Team Name"
-							type="text"
-							placeholder="Enter team name"
-							value={team.name}
-							labelHidden
-						/>
-						<Input
-							name="player"
-							label="Player Name"
-							type="text"
-							placeholder="Enter player name"
-							value={team.player}
-							labelHidden
-						/>
-						<div class="actions">
-							<button class="edit" type="submit">
-								<Edit />
-							</button>
-							<button class="circle delete" formaction="?/deleteTeam">×</button>
-						</div>
+					<Input
+						name="name"
+						label="Team Name"
+						type="text"
+						placeholder="Enter team name"
+						value={team.name}
+						labelHidden
+					/>
+					<Input
+						name="player"
+						label="Player Name"
+						type="text"
+						placeholder="Enter player name"
+						value={team.player}
+						labelHidden
+					/>
+					<div class="actions">
+						<button class="edit" type="submit">
+							<Edit />
+						</button>
+						<button class="circle delete" formaction="?/deleteTeam">×</button>
 					</div>
+				</div>
 			</form>
 		{/each}
 		<form method="POST" action="?/teams">
@@ -73,3 +74,15 @@
 		<button class="mx-auto secondary" on:click={() => open.set(false)}>Close</button>
 	</div>
 </Container>
+description="Lass (Leagues as a Service) is a platform for creating and managing league tables. Currently
+utilises the football league scoring method, possible other sports/games to be added later." />
+<div class="flex justify-center items-center space-x-2">
+	<a class="button secondary" href="https://github.com/mac-long/league-tables" target="_blank"
+		>Contribute</a
+	>
+	{#if data.session}
+		<a class="button" href="/dashboard">Dashboard</a>
+	{:else}
+		<a class="button" href="/get-started">Get Started</a>
+	{/if}
+</div>
