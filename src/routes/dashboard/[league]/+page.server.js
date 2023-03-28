@@ -364,8 +364,7 @@ export const actions = {
 
 		if (error) {
 			return {
-				status: 500,
-				redirect: `/dashboard/${data.get('league')}`
+				status: 500
 			};
 		}
 
