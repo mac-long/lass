@@ -87,14 +87,13 @@
 							>
 						</span>
 					</span>
-					{#if session?.user.id !== league.user}
-						<button
-							class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer group-hover:block hover:text-red-500"
-							type="submit"
-						>
-							<Bin />
-						</button>
-					{/if}
+					<button
+						class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer hover:text-red-500"
+						class:group-hover:block={session?.user.id === league?.user}
+						type="submit"
+					>
+						<Bin />
+					</button>
 				</form>
 			</div>
 		{/each}
