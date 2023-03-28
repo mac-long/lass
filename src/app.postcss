@@ -89,12 +89,10 @@
 
 			&[type='number'] {
 				@apply w-16;
-
 			}
 			&[type='color'] {
 				@apply w-36 p-4 mx-auto;
 			}
-
 		}
 
 		textarea {
@@ -121,6 +119,11 @@
 					@apply px-6 py-4 whitespace-nowrap;
 				}
 			}
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			filter: invert(100%);
 		}
 	}
 }
