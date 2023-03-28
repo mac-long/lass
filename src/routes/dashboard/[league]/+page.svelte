@@ -67,7 +67,6 @@
 			</div>
 		{/if}
 		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
-			>
 			<form
 				class="relative flex items-center w-[200px] h-[270px] px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
 				action="?/deleteFixture"
