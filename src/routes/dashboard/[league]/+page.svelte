@@ -9,7 +9,7 @@
 	import { writable } from 'svelte/store';
 
 	export let data;
-	const { league, teams, fixtures, seasons } = data;
+	const { league, teams, fixtures, seasons, session } = data;
 	const editOpen = writable(false),
 		teamsOpen = writable(false),
 		fixtureOpen = writable(false);
@@ -35,6 +35,12 @@
 
 <Header
 	actions={[
+		{
+			label: 'Share',
+			onClick: () =>
+				navigator.clipboard.writeText(`https://lass.vercel.app/dashboard/${league.id}`),
+			type: 'share'
+		},
 		{ label: 'Settings', onClick: () => editOpen.set(true), type: 'settings' },
 		{ label: 'Teams', onClick: () => teamsOpen.set(true), type: 'secondary' },
 		{ label: 'Add Fixture', onClick: () => fixtureOpen.set(true), type: 'primary' }
@@ -44,6 +50,8 @@
 	dashboard
 	{seasons}
 	{teams}
+	{session}
+	{league}
 />
 
 <!-- Main View -->
@@ -79,12 +87,14 @@
 							>
 						</span>
 					</span>
-					<button
-						class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer group-hover:block hover:text-red-500"
-						type="submit"
-					>
-						<Bin />
-					</button>
+					{#if session?.user.id !== league.user}
+						<button
+							class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer group-hover:block hover:text-red-500"
+							type="submit"
+						>
+							<Bin />
+						</button>
+					{/if}
 				</form>
 			</div>
 		{/each}

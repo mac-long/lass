@@ -1,5 +1,5 @@
 <script>
-	import { Settings } from '$lib/icons/icons';
+	import { Settings, Share } from '$lib/icons/icons';
 	import { currentSeason, dashboardView, sortFilter, teamsTable, visibleSeason } from '$lib/store';
 
 	export let actions = [],
@@ -7,6 +7,8 @@
 		description,
 		dashboard = false,
 		seasons,
+		league,
+		session,
 		teams;
 
 	const changeSeason = (e) => {
@@ -33,23 +35,28 @@
 </script>
 
 <div class="relative flex flex-col-reverse item-center justify-center px-8 sm:px-0 sm:block">
-	<div
-		class="flex justify-center sm:justify-start sm:absolute top-0 right-48 items-center space-x-3 my-4"
-	>
-		{#each actions as action}
-			<button
-				id={action.type === 'settings' ? 'settings' : ''}
-				class={`flex items-center space-x-1 ${action.type === 'primary' ? 'primary' : 'secondary'}`}
-				on:click={action.onClick}
-			>
-				{#if action.type === 'settings'}
-					<Settings />
-				{:else}
-					<span>{action.label}</span>
-				{/if}
-			</button>
-		{/each}
-	</div>
+	{#if session?.user.id === league.user}
+		<div
+			class="flex justify-center sm:justify-start sm:absolute top-0 right-16 items-center space-x-3 my-4"
+		>
+			{#each actions as action}
+				<button
+					class={`flex items-center space-x-1 ${
+						action.type === 'primary' ? 'primary' : 'secondary'
+					}`}
+					on:click={action.onClick}
+				>
+					{#if action.type === 'settings'}
+						<Settings />
+					{:else if action.type === 'share'}
+						<Share />
+					{:else}
+						<span>{action.label}</span>
+					{/if}
+				</button>
+			{/each}
+		</div>
+	{/if}
 	<div>
 		<h1>{title}</h1>
 		<p class="mx-auto max-w-lg py-4">

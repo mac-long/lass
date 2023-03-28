@@ -1,16 +1,7 @@
 import { supabase } from '$lib/supabase';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ locals: { getSession }, params }) {
-	const session = await getSession();
-
-	if (!session) {
-		return {
-			status: 401,
-			redirect: '/login'
-		};
-	}
-
+export async function load({ params }) {
 	const { data: league, error: leagueError } = await supabase
 		.from('leagues')
 		.select('*')
