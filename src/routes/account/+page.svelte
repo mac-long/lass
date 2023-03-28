@@ -19,14 +19,14 @@
 </svelte:head>
 
 <h1>Account</h1>
-<form class="mx-auto max-w-xl sm:px-0 px-4 sm:mt-0 mt-8">
+<form class="px-4 mx-auto mt-8 max-w-xl sm:px-0 sm:mt-0">
 	<div class="form-group">
 		<label for="email">Logged in As</label>
 		<input class="text-center" type="text" value={session.user.email} disabled />
 	</div>
 </form>
 
-<form class="mx-auto max-w-xl px-4 sm:px-0" method="post" action="?/signout" use:enhance={handleSubmit}>
+<form class="px-4 mx-auto max-w-xl sm:px-0" method="post" action="?/signout" use:enhance={handleSubmit}>
 	<div class="form-group">
 		<button class="hover:text-white button" type="submit" disabled={loading}>Sign Out</button>
 	</div>

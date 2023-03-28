@@ -61,14 +61,14 @@
 {:else}
 	<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
 		{#if fixtures.length === 0}
-			<div class="flex flex-col items-center justify-center space-y-4">
+			<div class="flex flex-col justify-center items-center space-y-4">
 				<h2 class="text-xl font-bold">No fixtures yet</h2>
 				<p class="text-center">Add some fixtures to get started</p>
 			</div>
 		{/if}
 		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
 			<form
-				class="relative flex flex-col items-center font-bold justify-center w-[200px] h-[270px] mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
+				class="flex relative flex-col justify-center items-center mr-4 mb-4 font-bold text-black bg-white rounded-lg shadow-md w-[200px] h-[270px] group"
 				action="?/deleteFixture"
 				method="POST"
 			>
@@ -89,7 +89,7 @@
 					</span>
 				</span>
 				<button
-					class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer hover:text-red-500"
+					class="hidden absolute top-0 right-0 m-2 w-2 h-2 rounded-full cursor-pointer hover:text-red-500 no-style"
 					class:group-hover:block={session?.user.id === league?.user}
 					type="submit"
 				>
@@ -135,7 +135,7 @@
 	<div class="teams">
 		{#each teams as team}
 			<form method="POST" action="?/editTeam">
-				<div class="flex flex-col sm:flex-row items-center space-x-2">
+				<div class="flex flex-col items-center space-x-2 sm:flex-row">
 					<input type="hidden" name="id" value={team.id} />
 					<Input
 						name="name"
@@ -163,7 +163,7 @@
 			</form>
 		{/each}
 		<form method="POST" action="?/teams">
-			<div class="flex flex-col sm:flex-row items-center p-0 m-0 space-x-2">
+			<div class="flex flex-col items-center p-0 m-0 space-x-2 sm:flex-row">
 				<Input
 					name="name"
 					label="Team Name"

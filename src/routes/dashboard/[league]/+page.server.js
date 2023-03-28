@@ -214,7 +214,7 @@ export const actions = {
 		const away = data.get('away');
 		const homeScore = Number(data.get('homeScore'));
 		const awayScore = Number(data.get('awayScore'));
-		console.log(home, away, homeScore, awayScore)
+		console.log(home, away, homeScore, awayScore);
 
 		const { data: fixture, error } = await supabase
 			.from('fixtures')

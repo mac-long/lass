@@ -34,10 +34,10 @@
 	};
 </script>
 
-<div class="relative flex flex-col-reverse item-center justify-center px-8 sm:px-0 sm:block">
+<div class="flex relative flex-col-reverse justify-center px-8 sm:block sm:px-0 item-center">
 	{#if session?.user.id === league?.user}
 		<div
-			class="flex justify-center sm:justify-start sm:absolute top-0 right-16 items-center space-x-3 my-4"
+			class="flex top-0 right-16 justify-center items-center my-4 space-x-3 sm:absolute sm:justify-start"
 		>
 			{#each actions as action}
 				<button
@@ -59,7 +59,7 @@
 	{/if}
 	<div>
 		<h1>{title}</h1>
-		<p class="mx-auto max-w-lg py-4">
+		<p class="py-4 mx-auto max-w-lg">
 			{description}
 		</p>
 

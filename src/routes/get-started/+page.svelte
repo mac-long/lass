@@ -5,7 +5,7 @@
 	export let data;
 </script>
 
-<div class="max-w-xl mx-auto px-8">
+<div class="px-8 mx-auto max-w-xl">
 	<h1>Login</h1>
 	<Auth
 		supabaseClient={data.supabase}

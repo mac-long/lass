@@ -19,7 +19,7 @@
 	});
 </script>
 
-<header class="flex justify-between items-center py-8 px-4 mb-8 sm:mb-0 sm:p-16 w-screen">
+<header class="flex justify-between items-center py-8 px-4 mb-8 w-screen sm:p-16 sm:mb-0">
 	<h1 class="text-3xl">
 		<a href="/">Lass</a>
 	</h1>
