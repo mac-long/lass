@@ -1,4 +1,6 @@
-# 3 Sided Cube FC
+# Lass
+
+Lass (Leagues as a Service) is a platform for creating and managing league tables.
 
 ## Tools
 
