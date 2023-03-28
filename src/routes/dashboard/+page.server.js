@@ -10,9 +10,10 @@ export const load = async ({ locals: { getSession } }) => {
 	const { data: admins } = await supabase
 		.from('leagues')
 		.select()
-		.contains('admins', [session.user.id]);
+		.contains('admins', [session.user.id])
+		.neq('user', session.user.id);
 
-	const merged = leagues.concat(watched).concat(admins);
+	const merged = watched.concat(admins);
 
 	return {
 		leagues,
