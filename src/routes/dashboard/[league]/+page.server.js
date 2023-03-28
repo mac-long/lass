@@ -4,23 +4,23 @@ import { supabase } from '$lib/supabase';
 export async function load({ params }) {
 	const { data: league, error: leagueError } = await supabase
 		.from('leagues')
-		.select('*')
+		.select()
 		.eq('id', params.league)
 		.single();
 
 	const { data: teams, error: teamsError } = await supabase
 		.from('teams')
-		.select('*')
+		.select()
 		.eq('league', params.league);
 
 	const { data: fixtures, error: fixturesError } = await supabase
 		.from('fixtures')
-		.select('*')
+		.select()
 		.eq('league', params.league);
 
 	const { data: seasons, error: seasonsError } = await supabase
 		.from('seasons')
-		.select('*')
+		.select()
 		.eq('league', params.league);
 
 	if (leagueError || teamsError || fixturesError || seasonsError) {
@@ -165,8 +165,8 @@ export const actions = {
 			league: params.league
 		});
 
-		const { data: homeData } = await supabase.from('teams').select('*').eq('id', home);
-		const { data: awayData } = await supabase.from('teams').select('*').eq('id', away);
+		const { data: homeData } = await supabase.from('teams').select().eq('id', home);
+		const { data: awayData } = await supabase.from('teams').select().eq('id', away);
 
 		const { data: homeUpdate } = await supabase
 			.from('teams')
@@ -221,8 +221,8 @@ export const actions = {
 			.delete()
 			.eq('id', data.get('id'));
 
-		const { data: homeData } = await supabase.from('teams').select('*').eq('id', home);
-		const { data: awayData } = await supabase.from('teams').select('*').eq('id', away);
+		const { data: homeData } = await supabase.from('teams').select().eq('id', home);
+		const { data: awayData } = await supabase.from('teams').select().eq('id', away);
 
 		const { data: homeUpdate } = await supabase
 			.from('teams')
@@ -268,14 +268,14 @@ export const actions = {
 		// Get league
 		const { data: league, error: leagueError } = await supabase
 			.from('leagues')
-			.select('*')
+			.select()
 			.eq('id', params.league)
 			.single();
 
 		// Get winner of league
 		const { data: winner, error: winnerError } = await supabase
 			.from('teams')
-			.select('*')
+			.select()
 			.eq('league', params.league)
 			.order('pts', { ascending: false }, 'gd', { ascending: false })
 			.limit(1);
@@ -283,7 +283,7 @@ export const actions = {
 		// Get current teams table
 		const { data: teams, error: teamsError } = await supabase
 			.from('teams')
-			.select('*')
+			.select()
 			.eq('league', params.league);
 
 		// Store previous season
@@ -336,6 +336,43 @@ export const actions = {
 				teams,
 				season,
 				newSeason,
+				leagueUpdate
+			}
+		};
+	},
+	watch: async ({ request, locals: { getSession } }) => {
+		const session = await getSession();
+		const data = await request.formData();
+
+		const { data: league } = await supabase
+			.from('leagues')
+			.select()
+			.eq('id', data.get('league'))
+			.single();
+
+		const { data: leagueUpdate, error } = await supabase
+			.from('leagues')
+			.update({
+				watchers:
+					league.watchers?.length > 0
+						? league.watchers.includes(session.user.id)
+							? [...league.watchers.filter((watcher) => watcher !== session.user.id)]
+							: [...league.watchers, session.user.id]
+						: [session.user.id]
+			})
+			.eq('id', data.get('league'));
+
+		if (error) {
+			return {
+				status: 500,
+				redirect: `/dashboard/${data.get('league')}`
+			};
+		}
+
+		return {
+			status: 200,
+			body: {
+				league,
 				leagueUpdate
 			}
 		};

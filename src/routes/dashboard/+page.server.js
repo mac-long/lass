@@ -2,10 +2,16 @@ import { supabase } from '$lib/supabase';
 
 export const load = async ({ locals: { getSession } }) => {
 	const session = await getSession();
-	const { data: leagues } = await supabase.from('leagues').select('*').eq('user', session.user.id);
+	const { data: leagues } = await supabase.from('leagues').select().eq('user', session.user.id);
+	// watched should select all leagues where the watchers array contains the user id using .cs
+	const { data: watched } = await supabase
+		.from('leagues')
+		.select()
+		.contains('watchers', [session.user.id]);
 
 	return {
-		leagues
+		leagues,
+		watched
 	};
 };
 
@@ -23,7 +29,7 @@ export const actions = {
 				color: data.get('color'),
 				currentSeason: 1
 			})
-			.select('*');
+			.select();
 
 		const { data: season, error: seasonError } = await supabase.from('seasons').insert({
 			league: leagues[0].id,

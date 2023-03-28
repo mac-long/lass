@@ -44,7 +44,11 @@
 		},
 		{ label: 'Settings', onClick: () => editOpen.set(true), type: 'settings' },
 		{ label: 'Teams', onClick: () => teamsOpen.set(true), type: 'secondary' },
-		{ label: 'Add Fixture', onClick: () => fixtureOpen.set(true), type: 'primary' }
+		{ label: 'Add Fixture', onClick: () => fixtureOpen.set(true), type: 'primary' },
+		{
+			label: league?.watchers?.includes(session.user.id) ? 'Unwatch' : 'Watch',
+			type: 'watcher'
+		}
 	]}
 	title={league.name}
 	description={league.description}

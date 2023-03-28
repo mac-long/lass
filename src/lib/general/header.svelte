@@ -37,11 +37,11 @@
 </script>
 
 <div class="flex relative flex-col-reverse justify-center px-8 sm:block sm:px-0 item-center">
-	{#if session?.user.id === league?.user}
-		<div
-			class="flex top-0 right-16 justify-center items-center my-4 space-x-3 sm:absolute sm:justify-start"
-		>
-			{#each actions as action}
+	<div
+		class="flex top-0 right-16 justify-center items-center my-4 space-x-3 sm:absolute sm:justify-start"
+	>
+		{#each actions as action}
+			{#if session?.user.id === league?.user && action.type !== 'watcher'}
 				<button
 					class={`flex items-center space-x-1 ${
 						action.type === 'primary' ? 'primary' : 'secondary'
@@ -56,9 +56,17 @@
 						<span>{action.label}</span>
 					{/if}
 				</button>
-			{/each}
-		</div>
-	{/if}
+			{/if}
+			{#if action.type === 'watcher' && session?.user.id && session?.user.id !== league?.user}
+				<form action="?/watch" method="POST">
+					<input type="hidden" name="league" value={league.id} />
+					<button class="flex items-center space-x-1 secondary" type="submit">
+						{action.label}
+					</button>
+				</form>
+			{/if}
+		{/each}
+	</div>
 	<div>
 		<h1>{title}</h1>
 		<p class="py-4 mx-auto max-w-lg">

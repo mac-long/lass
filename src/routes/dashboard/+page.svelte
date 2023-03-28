@@ -7,10 +7,7 @@
 
 	export let data;
 
-	const { leagues } = data;
-	const user = {
-		watched: []
-	};
+	const { leagues, watched } = data;
 
 	const open = writable(false);
 	const view = writable('created');
@@ -36,7 +33,7 @@
 	{#if $view === 'created'}
 		<List {leagues} />
 	{:else}
-		<List leagues={user.watched} />
+		<List leagues={watched} />
 	{/if}
 </div>
 
