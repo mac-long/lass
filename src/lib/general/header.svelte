@@ -38,6 +38,7 @@
 	>
 		{#each actions as action}
 			<button
+				id={action.type === 'settings' ? 'settings' : ''}
 				class={`flex items-center space-x-1 ${action.type === 'primary' ? 'primary' : 'secondary'}`}
 				on:click={action.onClick}
 			>

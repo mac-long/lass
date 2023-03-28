@@ -1,9 +1,9 @@
 <script>
 	import Container from '$lib/forms/container.svelte';
 	import Input from '$lib/forms/input.svelte';
+	import { getTeamName } from '$lib/functions';
 	import Header from '$lib/general/header.svelte';
-	import { Edit } from '$lib/icons/icons';
-	import Fixtures from '$lib/leagues/fixtures.svelte';
+	import { Bin, Edit } from '$lib/icons/icons';
 	import Table from '$lib/leagues/table.svelte';
 	import { currentSeason, dashboardView, teamsTable, visibleSeason } from '$lib/store';
 	import { writable } from 'svelte/store';
@@ -27,6 +27,8 @@
 	currentSeason.set(league.currentSeason);
 </script>
 
+<!-- Header -->
+
 <svelte:head>
 	<title>{league.name} | Lass</title>
 </svelte:head>
@@ -44,12 +46,54 @@
 	{teams}
 />
 
+<!-- Main View -->
+
 {#if $dashboardView === 'table'}
 	<Table />
 {:else}
-	<Fixtures {fixtures} {teams} />
+	<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
+		{#if fixtures.length === 0}
+			<div class="flex flex-col items-center justify-center space-y-4">
+				<h2 class="text-xl font-bold">No fixtures yet</h2>
+				<p class="text-center">Add some fixtures to get started</p>
+			</div>
+		{/if}
+		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
+			<div
+				class="relative flex items-center py-4 px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
+			>
+				<form action="?/deleteFixture" method="POST">
+					<input type="hidden" name="id" value={fixture.id} />
+					<span class="flex flex-col items-center space-y-4">
+						<input type="number" class="hidden" name="home" value={fixture.home} />
+						<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
+						{getTeamName(fixture.home, teams)}<span class="text-2xl font-bold"
+							>{fixture.homeScore}</span
+						>
+						<span class="mx-2 text-4xl font-bold">vs</span>
+						<span class="flex flex-col-reverse items-center">
+							<input type="number" class="hidden" name="away" value={fixture.away} />
+							<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
+							{getTeamName(fixture.away, teams)}<span class="text-2xl font-bold"
+								>{fixture.awayScore}</span
+							>
+						</span>
+					</span>
+					<button
+						class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer group-hover:block hover:text-red-500"
+						type="submit"
+					>
+						<Bin />
+					</button>
+				</form>
+			</div>
+		{/each}
+	</div>
 {/if}
 
+<!-- Modals -->
+
+<!-- Edit League -->
 <Container title="Edit League" open={editOpen}>
 	<form method="POST" action="?/edit">
 		<Input
@@ -77,6 +121,7 @@
 	</form>
 </Container>
 
+<!-- Teams -->
 <Container title="Teams" open={teamsOpen} lg>
 	<div class="teams">
 		{#each teams as team}
@@ -138,6 +183,7 @@
 	</div>
 </Container>
 
+<!-- Add Fixture -->
 <Container title="Add Fixture" open={fixtureOpen}>
 	<form class="flex flex-col py-4 mx-auto space-y-4" method="POST" action="?/addFixture">
 		<div class="flex flex-col justify-center items-center space-y-4">

@@ -55,6 +55,11 @@
 			@apply bg-transparent p-0;
 			@apply hover:text-emerald-500;
 		}
+
+		&.no-style {
+			@apply bg-transparent p-0 rounded-none w-auto h-auto;
+			@apply hover:text-red-500 hover:bg-transparent;
+		}
 	}
 
 	.teams {
@@ -84,10 +89,12 @@
 
 			&[type='number'] {
 				@apply w-16;
+
 			}
 			&[type='color'] {
 				@apply w-36 p-4 mx-auto;
 			}
+
 		}
 
 		textarea {

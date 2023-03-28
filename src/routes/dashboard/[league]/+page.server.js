@@ -217,6 +217,62 @@ export const actions = {
 			body: { fixture, homeUpdate, awayUpdate }
 		};
 	},
+	deleteFixture: async ({ request, params }) => {
+		const data = await request.formData();
+		const home = data.get('home');
+		const away = data.get('away');
+		const homeScore = Number(data.get('homeScore'));
+		const awayScore = Number(data.get('awayScore'));
+		console.log(home, away, homeScore, awayScore)
+
+		const { data: fixture, error } = await supabase
+			.from('fixtures')
+			.delete()
+			.eq('id', data.get('id'));
+
+		const { data: homeData } = await supabase.from('teams').select('*').eq('id', home);
+		const { data: awayData } = await supabase.from('teams').select('*').eq('id', away);
+
+		const { data: homeUpdate } = await supabase
+			.from('teams')
+			.update({
+				played: homeData[0].played - 1,
+				won: homeData[0].won - (homeScore > awayScore ? 1 : 0),
+				drawn: homeData[0].drawn - (homeScore === awayScore ? 1 : 0),
+				lost: homeData[0].lost - (homeScore < awayScore ? 1 : 0),
+				gf: homeData[0].gf - homeScore,
+				ga: homeData[0].ga - awayScore,
+				gd: homeData[0].gd - homeScore + awayScore,
+				pts: homeData[0].pts - (homeScore > awayScore ? 3 : homeScore === awayScore ? 1 : 0)
+			})
+			.eq('id', home);
+
+		const { data: awayUpdate } = await supabase
+			.from('teams')
+			.update({
+				played: awayData[0].played - 1,
+				won: awayData[0].won - (awayScore > homeScore ? 1 : 0),
+				drawn: awayData[0].drawn - (awayScore === homeScore ? 1 : 0),
+				lost: awayData[0].lost - (awayScore < homeScore ? 1 : 0),
+				gf: awayData[0].gf - awayScore,
+				ga: awayData[0].ga - homeScore,
+				gd: awayData[0].gd - awayScore + homeScore,
+				pts: awayData[0].pts - (awayScore > homeScore ? 3 : awayScore === homeScore ? 1 : 0)
+			})
+			.eq('id', away);
+
+		if (error) {
+			return {
+				status: 500,
+				redirect: `/dashboard/${params.league}`
+			};
+		}
+
+		return {
+			status: 200,
+			body: { fixture, homeUpdate, awayUpdate }
+		};
+	},
 	newSeason: async ({ params }) => {
 		// Get league
 		const { data: league, error: leagueError } = await supabase

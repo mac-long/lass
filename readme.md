@@ -10,4 +10,4 @@ Lass (Leagues as a Service) is a platform for creating and managing league table
 
 ## Todo
 
-View issues for the [project here](https://github.com/mac-long/tsc-fc/issues) or a full [project board here](https://github.com/users/mac-long/projects/2/views/1?layout=board)
+View issues for the [project here](https://github.com/mac-long/tsc-fc/issues) or a full [project board here](https://github.com/users/mac-long/projects/2/views/1?layout=board).
