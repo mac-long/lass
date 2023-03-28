@@ -1,9 +1,6 @@
 <script>
 	import Header from '$lib/general/header.svelte';
-	import { writable } from 'svelte/store';
-	const teams = [];
-	const open = writable(true);
-	export let data;
+		export let data;
 </script>
 
 <Header

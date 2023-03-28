@@ -35,7 +35,7 @@
 </script>
 
 <div class="relative flex flex-col-reverse item-center justify-center px-8 sm:px-0 sm:block">
-	{#if session?.user.id === league.user}
+	{#if session?.user.id === league?.user}
 		<div
 			class="flex justify-center sm:justify-start sm:absolute top-0 right-16 items-center space-x-3 my-4"
 		>
