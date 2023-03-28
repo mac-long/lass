@@ -67,35 +67,36 @@
 			</div>
 		{/if}
 		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
-			<div
-				class="relative flex items-center w-[200px] h-[270px] px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
 			>
-				<form action="?/deleteFixture" method="POST">
-					<input type="hidden" name="id" value={fixture.id} />
-					<span class="flex flex-col items-center space-y-4">
-						<input type="number" class="hidden" name="home" value={fixture.home} />
-						<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
-						{getTeamName(fixture.home, teams)}<span class="text-2xl font-bold"
-							>{fixture.homeScore}</span
-						>
-						<span class="mx-2 text-4xl font-bold">vs</span>
-						<span class="flex flex-col-reverse items-center">
-							<input type="number" class="hidden" name="away" value={fixture.away} />
-							<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
-							{getTeamName(fixture.away, teams)}<span class="text-2xl font-bold"
-								>{fixture.awayScore}</span
-							>
-						</span>
-					</span>
-					<button
-						class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer hover:text-red-500"
-						class:group-hover:block={session?.user.id === league?.user}
-						type="submit"
+			<form
+				class="relative flex items-center w-[200px] h-[270px] px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
+				action="?/deleteFixture"
+				method="POST"
+			>
+				<input type="hidden" name="id" value={fixture.id} />
+				<span class="flex flex-col items-center space-y-4">
+					<input type="number" class="hidden" name="home" value={fixture.home} />
+					<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
+					{getTeamName(fixture.home, teams)}<span class="text-2xl font-bold"
+						>{fixture.homeScore}</span
 					>
-						<Bin />
-					</button>
-				</form>
-			</div>
+					<span class="mx-2 text-4xl font-bold">vs</span>
+					<span class="flex flex-col-reverse items-center">
+						<input type="number" class="hidden" name="away" value={fixture.away} />
+						<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
+						{getTeamName(fixture.away, teams)}<span class="text-2xl font-bold"
+							>{fixture.awayScore}</span
+						>
+					</span>
+				</span>
+				<button
+					class="no-style absolute top-0 right-0 w-2 h-2 m-2 rounded-full hidden cursor-pointer hover:text-red-500"
+					class:group-hover:block={session?.user.id === league?.user}
+					type="submit"
+				>
+					<Bin />
+				</button>
+			</form>
 		{/each}
 	</div>
 {/if}
