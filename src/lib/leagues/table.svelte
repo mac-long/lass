@@ -32,7 +32,7 @@
 <div class="overflow-x-scroll space-y-4">
 	<table>
 		<thead>
-			<tr>
+			<tr class="rounded-t-md">
 				{#each $headings as heading}
 					{#if heading === 'Pos' || heading === 'Club'}
 						<th class="cursor-default">{heading}</th>
