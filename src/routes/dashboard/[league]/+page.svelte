@@ -68,7 +68,7 @@
 		{/if}
 		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
 			<div
-				class="relative flex items-center py-4 max-w-[200px] px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
+				class="relative flex items-center py-4 w-[200px] h-[230px] px-16 mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
 			>
 				<form action="?/deleteFixture" method="POST">
 					<input type="hidden" name="id" value={fixture.id} />
