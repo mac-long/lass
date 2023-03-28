@@ -3,7 +3,6 @@ import { supabase } from '$lib/supabase';
 export const load = async ({ locals: { getSession } }) => {
 	const session = await getSession();
 	const { data: leagues } = await supabase.from('leagues').select().eq('user', session.user.id);
-	// watched should select all leagues where the watchers array contains the user id using .cs
 	const { data: watched } = await supabase
 		.from('leagues')
 		.select()
