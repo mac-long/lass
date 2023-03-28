@@ -68,7 +68,7 @@
 		{/if}
 		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
 			<form
-				class="relative flex flex-col items-center justify-center w-[200px] h-[270px] mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
+				class="relative flex flex-col items-center font-bold justify-center w-[200px] h-[270px] mr-4 mb-4 text-black bg-white rounded-lg shadow-md group"
 				action="?/deleteFixture"
 				method="POST"
 			>
@@ -76,14 +76,14 @@
 				<span class="flex flex-col items-center space-y-4">
 					<input type="number" class="hidden" name="home" value={fixture.home} />
 					<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
-					{getTeamName(fixture.home, teams)}<span class="text-2xl font-bold"
+					{getTeamName(fixture.home, teams)}<span class="text-2xl"
 						>{fixture.homeScore}</span
 					>
-					<span class="mx-2 text-4xl font-bold">vs</span>
+					<span class="mx-2 text-4xl">vs</span>
 					<span class="flex flex-col-reverse items-center">
 						<input type="number" class="hidden" name="away" value={fixture.away} />
 						<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
-						{getTeamName(fixture.away, teams)}<span class="text-2xl font-bold"
+						{getTeamName(fixture.away, teams)}<span class="text-2xl"
 							>{fixture.awayScore}</span
 						>
 					</span>
