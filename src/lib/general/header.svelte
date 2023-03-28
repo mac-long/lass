@@ -41,7 +41,7 @@
 		class="flex top-0 right-16 justify-center items-center my-4 space-x-3 sm:absolute sm:justify-start"
 	>
 		{#each actions as action}
-			{#if (league?.admins.includes(session?.user.id) && action.type !== 'watcher') || (league?.admins.includes(session?.user.id) && action.type !== 'watcher' && action.label !== 'New')}
+			{#if (league?.admins?.includes(session?.user.id) && action.type !== 'watcher') || (league?.admins?.includes(session?.user.id) && action.type !== 'watcher' && action.label !== 'New')}
 				<button
 					class={`flex items-center space-x-1 ${
 						action.type === 'primary' ? 'primary' : 'secondary'
@@ -62,7 +62,7 @@
 					<span>{action.label}</span>
 				</button>
 			{/if}
-			{#if action.type === 'watcher' && !league?.admins.includes(session?.user.id)}
+			{#if action.type === 'watcher' && !league?.admins?.includes(session?.user.id)}
 				<form action="?/watch" method="POST">
 					<input type="hidden" name="league" value={league.id} />
 					<button class="flex items-center space-x-1 secondary" type="submit">
