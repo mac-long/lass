@@ -1,3 +1,3 @@
-export const getTeamName = (id, teams) => {
-	return teams.find((team) => team.id === id).name;
+export const getValue = (id, array, value) => {
+	return array.find((item) => item.id === id)[value];
 };

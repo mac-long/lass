@@ -1,5 +1,5 @@
 <script>
-	export let name, label, labelHidden, type, placeholder = "", value = "", maxLength = 255;
+	export let name, label, labelHidden = false, type, placeholder = "", value = "", maxLength = 255;
 </script>
 
 <div class="form-group">

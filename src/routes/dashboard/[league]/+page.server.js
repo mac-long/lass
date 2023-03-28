@@ -23,7 +23,9 @@ export async function load({ params }) {
 		.select()
 		.eq('league', params.league);
 
-	if (leagueError || teamsError || fixturesError || seasonsError) {
+	const { data: users, error: usersError } = await supabase.from('users').select();
+
+	if (leagueError || teamsError || fixturesError || seasonsError || usersError) {
 		return {
 			status: 500,
 			redirect: '/dashboard'
@@ -35,7 +37,8 @@ export async function load({ params }) {
 			league,
 			teams,
 			fixtures,
-			seasons
+			seasons,
+			users
 		};
 	}
 }
@@ -372,6 +375,75 @@ export const actions = {
 			status: 200,
 			body: {
 				league,
+				leagueUpdate
+			}
+		};
+	},
+	addAdmin: async ({ request, params, locals: { getSession } }) => {
+		const session = await getSession();
+		const data = await request.formData();
+		const email = data.get('email');
+
+		const { data: league } = await supabase
+			.from('leagues')
+			.select()
+			.eq('id', params.league)
+			.single();
+
+		const { data: user } = await supabase.from('users').select('id').eq('email', email).single();
+
+		if (user.id !== session.user.id) {
+			const { data: leagueUpdate, error } = await supabase
+				.from('leagues')
+				.update({
+					admins: [...league.admins, user.id]
+				})
+				.eq('id', params.league);
+
+			if (error) {
+				console.log(error);
+				return {
+					status: 500
+				};
+			}
+
+			return {
+				status: 200,
+				body: {
+					leagueUpdate
+				}
+			};
+		}
+
+		return {
+			status: 500
+		};
+	},
+	removeAdmin: async ({ request, params }) => {
+		const data = await request.formData();
+
+		const { data: league } = await supabase
+			.from('leagues')
+			.select()
+			.eq('id', params.league)
+			.single();
+
+		const { data: leagueUpdate, error } = await supabase
+			.from('leagues')
+			.update({
+				admins: [...league.admins.filter((admin) => admin !== data.get('id'))]
+			})
+			.eq('id', params.league);
+
+		if (error) {
+			return {
+				status: 500
+			};
+		}
+
+		return {
+			status: 200,
+			body: {
 				leagueUpdate
 			}
 		};

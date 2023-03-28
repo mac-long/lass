@@ -57,13 +57,9 @@
 		}
 
 		&.no-style {
-			@apply bg-transparent p-0 rounded-none w-auto h-auto;
+			@apply bg-transparent p-0 rounded-none shadow-none w-auto h-auto;
 			@apply hover:text-red-500 hover:bg-transparent;
 		}
-	}
-
-	.teams {
-		@apply max-w-none flex flex-col items-start space-y-2;
 	}
 
 	.actions {
@@ -92,6 +88,10 @@
 			}
 			&[type='color'] {
 				@apply w-36 p-4 mx-auto;
+			}
+
+			&[type='submit'] {
+				@apply w-full;
 			}
 		}
 

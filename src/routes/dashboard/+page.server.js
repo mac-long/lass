@@ -7,10 +7,16 @@ export const load = async ({ locals: { getSession } }) => {
 		.from('leagues')
 		.select()
 		.contains('watchers', [session.user.id]);
+	const { data: admins } = await supabase
+		.from('leagues')
+		.select()
+		.contains('admins', [session.user.id]);
+
+	const merged = leagues.concat(watched).concat(admins);
 
 	return {
 		leagues,
-		watched
+		merged
 	};
 };
 
@@ -26,7 +32,9 @@ export const actions = {
 				name: data.get('name'),
 				description: data.get('description'),
 				color: data.get('color'),
-				currentSeason: 1
+				currentSeason: 1,
+				watchers: [],
+				admins: [session.user.id]
 			})
 			.select();
 
