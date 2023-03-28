@@ -116,7 +116,7 @@
 <!-- Modals -->
 <!-- Edit League -->
 <Container title="Edit League" open={editOpen}>
-	<div class="flex items-center space-x-2 mb-4">
+	<div class="flex items-center mb-4 space-x-2">
 		<span
 			class="font-bold cursor-pointer"
 			class:underline={$editView === 'info'}
@@ -162,7 +162,7 @@
 	{:else}
 		<ul class="space-y-4">
 			{#if league.admins.length === 0}
-				<p class="text-center font-bold">No admins</p>
+				<p class="font-bold text-center">No admins</p>
 				<p>Add some to allow other users to add/delete teams and add/delete fixtures</p>
 			{/if}
 			{#each league.admins as admin}
@@ -171,7 +171,7 @@
 						<input type="hidden" name="id" value={admin} />
 						<li class="flex items-center">
 							{getValue(admin, users, 'email')}
-							<button class="no-style ml-2" type="submit">
+							<button class="ml-2 no-style" type="submit">
 								<Bin />
 							</button>
 						</li>
@@ -181,7 +181,7 @@
 		</ul>
 		<form class="flex items-center" action="?/addAdmin" method="POST">
 			<Input name="email" type="email" placeholder="Enter admin email" labelHidden />
-			<button class="edit ml-2 -mt-2" type="submit">
+			<button class="ml-2 -mt-2 edit" type="submit">
 				<Plus />
 			</button>
 		</form>
