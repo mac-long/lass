@@ -1,13 +1,19 @@
 <script>
 	import Container from '$lib/forms/container.svelte';
+	import Input from '$lib/forms/input.svelte';
 	import Header from '$lib/general/header.svelte';
+	import List from '$lib/leagues/list.svelte';
 	import { writable } from 'svelte/store';
-	import Input from '../../lib/forms/input.svelte';
-	import Card from './card.svelte';
 
 	export let data;
 
+	const { leagues } = data;
+	const user = {
+		watched: []
+	};
+
 	const open = writable(false);
+	const view = writable('created');
 </script>
 
 <svelte:head>
@@ -19,13 +25,18 @@
 	title="Leagues"
 	description="This is your dashboard, click the new button to create a new league or select one of your
 		previouly created leagues below."
+	secondaryActions={[
+		{ label: 'Created', onClick: () => view.set('created') },
+		{ label: 'Watched', onClick: () => view.set('watched') }
+	]}
+	view={$view}
 />
 
 <div class="flex flex-wrap justify-center items-center py-16 mx-auto max-w-7xl">
-	{#if data.leagues.length !== 0}
-		{#each data.leagues as { id, name, color }}
-			<Card {id} {name} {color} />
-		{/each}
+	{#if $view === 'created'}
+		<List {leagues} />
+	{:else}
+		<List leagues={user.watched} />
 	{/if}
 </div>
 

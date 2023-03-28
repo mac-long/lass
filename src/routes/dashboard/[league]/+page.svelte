@@ -5,14 +5,15 @@
 	import Header from '$lib/general/header.svelte';
 	import { Bin, Edit } from '$lib/icons/icons';
 	import Table from '$lib/leagues/table.svelte';
-	import { currentSeason, dashboardView, teamsTable, visibleSeason } from '$lib/store';
+	import { currentSeason, teamsTable, visibleSeason } from '$lib/store';
 	import { writable } from 'svelte/store';
 
 	export let data;
 	const { league, teams, fixtures, seasons, session } = data;
 	const editOpen = writable(false),
 		teamsOpen = writable(false),
-		fixtureOpen = writable(false);
+		fixtureOpen = writable(false),
+		view = writable('table');
 
 	teamsTable.set(
 		teams.sort((a, b) => {
@@ -47,7 +48,20 @@
 	]}
 	title={league.name}
 	description={league.description}
+	secondaryActions={[
+		{
+			label: 'Table',
+			onClick: () => view.set('table'),
+			type: 'secondary'
+		},
+		{
+			label: 'Fixtures',
+			onClick: () => view.set('fixtures'),
+			type: 'secondary'
+		}
+	]}
 	dashboard
+	view={$view}
 	{seasons}
 	{teams}
 	{session}
@@ -55,8 +69,7 @@
 />
 
 <!-- Main View -->
-
-{#if $dashboardView === 'table'}
+{#if $view === 'table'}
 	<Table />
 {:else}
 	<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
@@ -76,16 +89,12 @@
 				<span class="flex flex-col items-center space-y-4">
 					<input type="number" class="hidden" name="home" value={fixture.home} />
 					<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
-					{getTeamName(fixture.home, teams)}<span class="text-2xl"
-						>{fixture.homeScore}</span
-					>
+					{getTeamName(fixture.home, teams)}<span class="text-2xl">{fixture.homeScore}</span>
 					<span class="mx-2 text-4xl">vs</span>
 					<span class="flex flex-col-reverse items-center">
 						<input type="number" class="hidden" name="away" value={fixture.away} />
 						<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
-						{getTeamName(fixture.away, teams)}<span class="text-2xl"
-							>{fixture.awayScore}</span
-						>
+						{getTeamName(fixture.away, teams)}<span class="text-2xl">{fixture.awayScore}</span>
 					</span>
 				</span>
 				<button
@@ -101,7 +110,6 @@
 {/if}
 
 <!-- Modals -->
-
 <!-- Edit League -->
 <Container title="Edit League" open={editOpen}>
 	<form method="POST" action="?/edit">

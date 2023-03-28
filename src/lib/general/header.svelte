@@ -1,11 +1,13 @@
 <script>
 	import { Settings, Share } from '$lib/icons/icons';
-	import { currentSeason, dashboardView, sortFilter, teamsTable, visibleSeason } from '$lib/store';
+	import { currentSeason, sortFilter, teamsTable, visibleSeason } from '$lib/store';
 
 	export let actions = [],
 		title,
 		description,
 		dashboard = false,
+		view,
+		secondaryActions = [],
 		seasons,
 		league,
 		session,
@@ -76,18 +78,15 @@
 					{/if}
 				</div>
 			</div>
-			<div class="flex justify-center items-center pt-8 mx-auto space-x-2">
-				<button
-					class="link"
-					class:underline={$dashboardView === 'table'}
-					on:click={() => dashboardView.set('table')}>Table</button
-				>
-				<button
-					class="link"
-					class:underline={$dashboardView === 'fixtures'}
-					on:click={() => dashboardView.set('fixtures')}>Fixtures</button
-				>
-			</div>
 		{/if}
+		<div class="flex justify-center items-center pt-8 mx-auto space-x-2">
+			{#each secondaryActions as action}
+				<button
+					class="link"
+					class:underline={view === action.label.toLowerCase()}
+					on:click={action.onClick}>{action.label}</button
+				>
+			{/each}
+		</div>
 	</div>
 </div>
