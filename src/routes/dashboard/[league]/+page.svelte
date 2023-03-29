@@ -103,7 +103,7 @@
 				</span>
 				<button
 					class="hidden absolute top-0 right-0 m-2 w-2 h-2 rounded-full cursor-pointer hover:text-red-500 no-style"
-					class:group-hover:block={session?.user.id === league?.user}
+					class:group-hover:block={league.admins.includes(session.user.id)}
 					type="submit"
 				>
 					<Bin />
