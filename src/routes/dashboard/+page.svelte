@@ -2,7 +2,6 @@
 	import Container from '$lib/forms/container.svelte';
 	import Input from '$lib/forms/input.svelte';
 	import Header from '$lib/general/header.svelte';
-	import List from '$lib/leagues/list.svelte';
 	import { writable } from 'svelte/store';
 
 	export let data;
@@ -31,9 +30,25 @@
 
 <div class="flex flex-wrap justify-center items-center py-16 mx-auto max-w-7xl">
 	{#if $view === 'created'}
-		<List {leagues} />
+		<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
+			{#if leagues.length !== 0}
+				{#each leagues as { id, name, color }}
+					<a class="card" href={`/dashboard/${id}`} style={`background-color: ${color}`}>
+						<h2>{name}</h2>
+					</a>
+				{/each}
+			{/if}
+		</div>
 	{:else}
-		<List leagues={merged} />
+		<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
+			{#if merged.length !== 0}
+				{#each merged as { id, name, color }}
+					<a class="card" href={`/dashboard/${id}`} style={`background-color: ${color}`}>
+						<h2>{name}</h2>
+					</a>
+				{/each}
+			{/if}
+		</div>
 	{/if}
 </div>
 
