@@ -1,5 +1,6 @@
 {
-	"name": "fifa-league",
+	"name": "lass",
+	"description": "Lass (Leagues as a Service) is an application for creating League Tables.",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
