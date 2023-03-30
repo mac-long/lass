@@ -1,5 +1,5 @@
 <script>
-	import { Settings, Share } from '$lib/icons/icons';
+	import { Settings, Share } from '$lib/icons/components';
 	import { currentSeason, sortFilter, teamsTable, visibleSeason } from '$lib/store';
 
 	export let actions = [],
