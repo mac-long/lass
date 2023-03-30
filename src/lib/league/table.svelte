@@ -1,4 +1,5 @@
 <script>
+	import { sortTeams } from '$lib/functions';
 	import { sortFilter, tableHeadings, teamsTable } from '$lib/store';
 
 	const handleHeadingClick = (heading) => {
@@ -11,13 +12,7 @@
 						: 'asc'
 					: 'desc'
 		});
-		teamsTable.set(
-			$teamsTable.sort((a, b) => {
-				return $sortFilter.order === 'asc'
-					? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-					: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-			})
-		);
+		sortTeams();
 	};
 </script>
 

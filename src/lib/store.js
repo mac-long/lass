@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
 
 // Header
-export const currentSeason = writable(1),
-	visibleSeason = writable(1);
+export const visibleSeason = writable(1),
+	currentSeason = writable(1);
 
 // Dashboard
 export const dashboardView = writable('created');

@@ -17,24 +17,19 @@
 
 	export let data;
 	const { league, teams, fixtures, seasons, session } = data;
-
-	teamsTable.set(
-		teams.sort((a, b) => {
-			return $sortFilter.order === 'asc'
-				? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-				: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-		})
-	);
-
-	visibleSeason.set(league.currentSeason);
-	currentSeason.set(league.currentSeason);
+	$visibleSeason = league.currentSeason;
+	$currentSeason = league.currentSeason;
+	$teamsTable = teams.sort((a, b) => {
+		return $sortFilter.order === 'asc'
+			? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+			: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
+	});
 </script>
 
-<!-- Header -->
+<!-- Head/Header -->
 <svelte:head>
 	<title>{league.name} | Lass</title>
 </svelte:head>
-
 <Header
 	actions={[
 		{
@@ -73,12 +68,14 @@
 	{league}
 />
 
+<!-- Main View -->
 {#if $leagueView === 'table'}
 	<Table />
 {:else}
 	<Fixtures admins={league.admins} user={session.user.id} {teams} {fixtures} />
 {/if}
 
+<!-- Modals -->
 <Modal title="Edit League" open={editLeagueOpen}>
 	<EditLeague view={editLeagueView} {league} />
 </Modal>

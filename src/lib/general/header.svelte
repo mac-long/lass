@@ -1,6 +1,7 @@
 <script>
+	import { sortTeams } from '$lib/functions';
 	import { Settings, Share } from '$lib/icons/components';
-	import { currentSeason, sortFilter, teamsTable, visibleSeason } from '$lib/store';
+	import { visibleSeason } from '$lib/store';
 
 	export let actions = [],
 		title,
@@ -10,30 +11,8 @@
 		secondaryActions = [],
 		seasons,
 		league,
-		session,
-		teams;
-
-	const changeSeason = (e) => {
-		if (Number(e.target.value) !== $currentSeason) {
-			teamsTable.set(
-				seasons
-					.find((season) => season.number === $visibleSeason)
-					.table.sort((a, b) => {
-						return $sortFilter.order === 'asc'
-							? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-							: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-					})
-			);
-		} else {
-			teamsTable.set(
-				teams.sort((a, b) => {
-					return $sortFilter.order === 'asc'
-						? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-						: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-				})
-			);
-		}
-	};
+		teams,
+		session;
 </script>
 
 <div class="flex relative flex-col justify-center px-8 sm:block sm:px-0 item-center">
@@ -80,7 +59,7 @@
 				<div class="form-group">
 					{#if seasons.length > 1}
 						<span class="font-bold">View Season</span>
-						<select bind:value={$visibleSeason} on:change={changeSeason}>
+						<select bind:value={$visibleSeason} on:change={() => sortTeams(teams, seasons)}>
 							{#each seasons as season}
 								<option value={season.number}>{season.number}</option>
 							{/each}
