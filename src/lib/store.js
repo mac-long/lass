@@ -10,7 +10,18 @@ export const dashboardView = writable('created');
 //Table
 export const sortFilter = writable({ name: 'pts', order: 'desc' }),
 	teamsTable = writable([]),
-	headings = writable(['Pos', 'Club', 'Played', 'Won', 'Drawn', 'Lost', 'GF', 'GA', 'GD', 'Pts']);
+	tableHeadings = writable([
+		'Pos',
+		'Club',
+		'Played',
+		'Won',
+		'Drawn',
+		'Lost',
+		'GF',
+		'GA',
+		'GD',
+		'Pts'
+	]);
 
 // Forms
 export const newLeagueOpen = writable(false),
@@ -18,4 +29,4 @@ export const newLeagueOpen = writable(false),
 	teamsOpen = writable(false),
 	fixtureOpen = writable(false),
 	leagueView = writable('table'),
-	editView = writable('info');
+	editLeagueView = writable('info');
