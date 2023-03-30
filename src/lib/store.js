@@ -1,19 +1,21 @@
 import { writable } from 'svelte/store';
 
-export const headings = writable([
-		'Pos',
-		'Club',
-		'Played',
-		'Won',
-		'Drawn',
-		'Lost',
-		'GF',
-		'GA',
-		'GD',
-		'Pts'
-	]),
-	sortFilter = writable({ name: 'pts', order: 'desc' }),
+// Header
+export const currentSeason = writable(1),
+	visibleSeason = writable(1);
+
+// Dashboard
+export const dashboardView = writable('created');
+
+//Table
+export const sortFilter = writable({ name: 'pts', order: 'desc' }),
 	teamsTable = writable([]),
-	dashboardView = writable('table'),
-	visibleSeason = writable(1),
-	currentSeason = writable(1);
+	headings = writable(['Pos', 'Club', 'Played', 'Won', 'Drawn', 'Lost', 'GF', 'GA', 'GD', 'Pts']);
+
+// Forms
+export const newLeagueOpen = writable(false),
+	editLeagueOpen = writable(false),
+	teamsOpen = writable(false),
+	fixtureOpen = writable(false),
+	leagueView = writable('table'),
+	editView = writable('info');

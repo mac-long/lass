@@ -1,30 +1,29 @@
 <script>
-	import { getValue } from '$lib/functions';
-	import { Bin, Plus } from '$lib/icons/components';
+	import { Plus } from '$lib/icons/components';
 	import Input from './input.svelte';
 
-	export let editView, league, users;
+	export let view, league, users;
 </script>
 
 <div class="flex items-center mb-4 space-x-2">
 	<span
-		class="font-bold cursor-pointer"
-		class:underline={$editView === 'info'}
-		on:click={() => editView.set('info')}
-		on:keydown={() => editView.set('info')}
+		class="text-lg font-bold cursor-pointer"
+		class:underline={$view === 'info'}
+		on:click={() => view.set('info')}
+		on:keydown={() => view.set('info')}
 	>
 		Info
 	</span>
 	<span
-		class="font-bold cursor-pointer"
-		class:underline={$editView === 'admins'}
-		on:click={() => editView.set('admins')}
-		on:keydown={() => editView.set('admins')}
+		class="text-lg font-bold cursor-pointer"
+		class:underline={$view === 'admins'}
+		on:click={() => view.set('admins')}
+		on:keydown={() => view.set('admins')}
 	>
 		Admins
 	</span>
 </div>
-{#if $editView === 'info'}
+{#if $view === 'info'}
 	<form class="flex flex-col space-y-4" action="?/edit" method="POST">
 		<Input
 			name="name"
@@ -42,6 +41,7 @@
 			value={league.description}
 		/>
 		<Input name="color" label="League Color" type="color" value={league.color} />
+
 		<div class="flex-1" />
 		<div class="form-group">
 			<input class="secondary" type="submit" formaction="?/newSeason" value="New Season" />
@@ -53,9 +53,12 @@
 	<ul class="space-y-4">
 		{#if league.admins.length === 0}
 			<p class="font-bold text-center">No admins</p>
-			<p>Add some to allow other users to add/delete teams and add/delete fixtures</p>
+			<p class="max-w-sm">
+				Add some to allow other users to add/delete teams and add/delete fixtures
+			</p>
 		{/if}
 		{#each league.admins as admin}
+			<!--
 			{#if admin !== league.user}
 				<form method="POST" action="?/removeAdmin">
 					<input type="hidden" name="id" value={admin} />
@@ -67,6 +70,8 @@
 					</li>
 				</form>
 			{/if}
+		-->
+			{admin}
 		{/each}
 	</ul>
 	<form class="flex items-center" action="?/addAdmin" method="POST">

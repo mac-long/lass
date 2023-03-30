@@ -13,7 +13,7 @@
 			class="absolute top-0 right-0 p-2 mt-2 mr-4 text-2xl text-black bg-gray-100 rounded-full shadow-lg no-style"
 			on:click={() => open.set(false)}>×</button
 		>
-		<h1 class="text-2xl font-bold">{title}</h1>
+		<h1 class="mb-14 text-2xl font-bold">{title}</h1>
 		<slot />
 	</div>
 {/if}

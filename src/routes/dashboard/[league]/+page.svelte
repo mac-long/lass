@@ -3,16 +3,21 @@
 	import { getValue } from '$lib/functions';
 	import { Header, Modal } from '$lib/general/components';
 	import { Bin } from '$lib/icons/components';
-	import { currentSeason, headings, sortFilter, teamsTable, visibleSeason } from '$lib/store';
-	import { writable } from 'svelte/store';
+	import {
+		currentSeason,
+		dashboardView,
+		editOpen,
+		editView,
+		fixtureOpen,
+		headings,
+		sortFilter,
+		teamsOpen,
+		teamsTable,
+		visibleSeason
+	} from '$lib/store';
 
 	export let data;
-	const { league, teams, fixtures, seasons, session, users } = data;
-	const editOpen = writable(false),
-		teamsOpen = writable(false),
-		fixtureOpen = writable(false),
-		view = writable('table'),
-		editView = writable('info');
+	const { league, teams, fixtures, seasons, session } = data;
 
 	teamsTable.set(
 		teams.sort((a, b) => {
@@ -71,17 +76,17 @@
 	secondaryActions={[
 		{
 			label: 'Table',
-			onClick: () => view.set('table'),
+			onClick: () => dashboardView.set('table'),
 			type: 'secondary'
 		},
 		{
 			label: 'Fixtures',
-			onClick: () => view.set('fixtures'),
+			onClick: () => dashboardView.set('fixtures'),
 			type: 'secondary'
 		}
 	]}
 	dashboard
-	view={$view}
+	view={$dashboardView}
 	{seasons}
 	{teams}
 	{session}
@@ -89,7 +94,7 @@
 />
 
 <!-- Main View -->
-{#if $view === 'table'}
+{#if $dashboardView === 'table'}
 	<div class="overflow-x-scroll space-y-4">
 		<table>
 			<thead>
@@ -212,6 +217,8 @@
 	</div>
 {/if}
 
-<Modal title="Edit League" open={editOpen}><EditLeague {editView} {league} /></Modal>
+<Modal title="Edit League" open={editOpen}>
+	<EditLeague view={editView} {league} />
+</Modal>
 <Modal title="Teams" open={teamsOpen} lg><Teams /></Modal>
 <Modal title="Add Fixture" open={fixtureOpen}><AddFixture /></Modal>

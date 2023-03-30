@@ -1,12 +1,10 @@
 <script>
 	import { NewLeague } from '$lib/forms/components';
 	import { Container, Header, List, Modal } from '$lib/general/components';
-	import { writable } from 'svelte/store';
+	import { dashboardView, newLeagueOpen } from '$lib/store';
+
 	export let data;
 	const { leagues, merged } = data;
-
-	const open = writable(false);
-	const view = writable('created');
 </script>
 
 <svelte:head>
@@ -14,25 +12,25 @@
 </svelte:head>
 
 <Header
-	actions={[{ label: 'New', onClick: () => open.set(true) }]}
+	actions={[{ label: 'New', onClick: () => newLeagueOpen.set(true) }]}
 	title="Leagues"
 	description="This is your dashboard, click the new button to create a new league or select one of your
 		previouly created leagues below."
 	secondaryActions={[
-		{ label: 'Created', onClick: () => view.set('created') },
-		{ label: 'Watched', onClick: () => view.set('watched') }
+		{ label: 'Created', onClick: () => dashboardView.set('created') },
+		{ label: 'Watched', onClick: () => dashboardView.set('watched') }
 	]}
-	view={$view}
+	view={$dashboardView}
 />
 
 <Container>
-	{#if $view === 'created'}
+	{#if $dashboardView === 'created'}
 		<List {leagues} />
 	{:else}
 		<List leagues={merged} />
 	{/if}
 </Container>
 
-<Modal title="New League" {open}>
+<Modal title="New League" open={newLeagueOpen}>
 	<NewLeague />
 </Modal>
