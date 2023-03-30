@@ -181,7 +181,9 @@
 				<p class="text-center">Add some fixtures to get started</p>
 			</div>
 		{/if}
-		{#each fixtures.filter((fixture) => fixture.season === $visibleSeason) as fixture}
+		{#each fixtures
+			.sort((a, b) => b.id - a.id)
+			.filter((fixture) => fixture.season === $visibleSeason) as fixture}
 			<form
 				class="flex relative flex-col justify-center items-center mr-4 mb-4 font-bold text-black bg-white rounded-lg shadow-md w-[200px] h-[270px] group"
 				action="?/deleteFixture"
