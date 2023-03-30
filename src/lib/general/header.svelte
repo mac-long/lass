@@ -36,51 +36,48 @@
 	};
 </script>
 
-<div class="flex relative flex-col-reverse justify-center px-8 sm:block sm:px-0 item-center">
-	<div
-		class="flex top-0 right-16 justify-center items-center my-4 space-x-3 sm:absolute sm:justify-start"
-	>
-		{#each actions as action}
-			{#if (league?.admins?.includes(session?.user.id) && action.type !== 'watcher') || (league?.admins?.includes(session?.user.id) && action.type !== 'watcher' && action.label !== 'New')}
-				<button
-					class={`flex items-center space-x-1 ${
-						action.type === 'primary' ? 'primary' : 'secondary'
-					}`}
-					on:click={action.onClick}
-				>
-					{#if action.type === 'settings'}
-						<Settings />
-					{:else if action.type === 'share'}
-						<Share />
-					{:else}
-						<span>{action.label}</span>
-					{/if}
-				</button>
-			{/if}
-			{#if action.label === 'New'}
-				<button class="flex items-center space-x-1 secondary" on:click={action.onClick}>
-					<span>{action.label}</span>
-				</button>
-			{/if}
-			{#if action.type === 'watcher' && !league?.admins?.includes(session?.user.id)}
-				<form action="?/watch" method="POST">
-					<input type="hidden" name="league" value={league.id} />
-					<button class="flex items-center space-x-1 secondary" type="submit">
-						{action.label}
-					</button>
-				</form>
-			{/if}
-		{/each}
-	</div>
+<div class="flex relative flex-col justify-center px-8 sm:block sm:px-0 item-center">
 	<div>
 		<h1>{title}</h1>
 		<p class="py-4 mx-auto max-w-lg">
 			{description}
 		</p>
-
+		<div class="flex  justify-center items-center my-4 space-x-3">
+			{#each actions as action}
+				{#if (league?.admins?.includes(session?.user.id) && action.type !== 'watcher') || (league?.admins?.includes(session?.user.id) && action.type !== 'watcher' && action.label !== 'New')}
+					<button
+						class={`flex items-center space-x-1 ${
+							action.type === 'primary' ? 'primary' : 'secondary'
+						}`}
+						on:click={action.onClick}
+					>
+						{#if action.type === 'settings'}
+							<Settings />
+						{:else if action.type === 'share'}
+							<Share />
+						{:else}
+							<span>{action.label}</span>
+						{/if}
+					</button>
+				{/if}
+				{#if action.label === 'New'}
+					<button class="flex items-center space-x-1 secondary" on:click={action.onClick}>
+						<span>{action.label}</span>
+					</button>
+				{/if}
+				{#if action.type === 'watcher' && !league?.admins?.includes(session?.user.id)}
+					<form action="?/watch" method="POST">
+						<input type="hidden" name="league" value={league.id} />
+						<button class="flex items-center space-x-1 secondary" type="submit">
+							{action.label}
+						</button>
+					</form>
+				{/if}
+			{/each}
+		</div>
 		{#if dashboard}
 			<div class="flex flex-col items-center py-4">
-				<div class="items-center form-group">
+				<div class="form-group">
 					{#if seasons.length > 1}
 						<span class="font-bold">View Season</span>
 						<select bind:value={$visibleSeason} on:change={changeSeason}>
