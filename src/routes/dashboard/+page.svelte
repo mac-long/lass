@@ -1,11 +1,8 @@
 <script>
-	import Container from '$lib/forms/container.svelte';
-	import Input from '$lib/forms/input.svelte';
-	import Header from '$lib/general/header.svelte';
+	import { NewLeague } from '$lib/forms/components';
+	import { Container, Header, List, Modal } from '$lib/general/components';
 	import { writable } from 'svelte/store';
-
 	export let data;
-
 	const { leagues, merged } = data;
 
 	const open = writable(false);
@@ -28,45 +25,12 @@
 	view={$view}
 />
 
-<div class="flex flex-wrap justify-center items-center py-16 mx-auto max-w-7xl">
+<Container>
 	{#if $view === 'created'}
-		<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
-			{#if leagues.length !== 0}
-				{#each leagues as { id, name, color }}
-					<a class="card" href={`/dashboard/${id}`} style={`background-color: ${color}`}>
-						<h2>{name}</h2>
-					</a>
-				{/each}
-			{/if}
-		</div>
+		<List {leagues} />
 	{:else}
-		<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
-			{#if merged.length !== 0}
-				{#each merged as { id, name, color }}
-					<a class="card" href={`/dashboard/${id}`} style={`background-color: ${color}`}>
-						<h2>{name}</h2>
-					</a>
-				{/each}
-			{/if}
-		</div>
+		<List leagues={merged} />
 	{/if}
-</div>
-
-<Container title="New League" {open}>
-	<form method="POST" action="?/new">
-		<Input name="name" label="League Name" type="text" placeholder="Enter league name" value="" />
-		<Input
-			name="description"
-			label="League Description"
-			type="textarea"
-			maxLength={255}
-			placeholder="Enter league description"
-			value=""
-		/>
-		<Input name="color" label="League Color" type="color" />
-		<div class="flex justify-center items-center space-x-2">
-			<button class="secondary" on:click={() => open.set(false)}>Cancel</button>
-			<input type="submit" value="Create" />
-		</div>
-	</form>
 </Container>
+
+<Modal title="New League" {open} component={NewLeague} />

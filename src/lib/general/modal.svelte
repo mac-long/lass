@@ -1,7 +1,8 @@
 <script>
 	export let title,
 		open,
-		lg = false;
+		lg = false,
+		component;
 </script>
 
 {#if $open}
@@ -14,6 +15,9 @@
 			on:click={() => open.set(false)}>×</button
 		>
 		<h1 class="text-2xl font-bold">{title}</h1>
+		{#if component}
+			<svelte:component this={component} />
+		{/if}
 		<slot />
 	</div>
 {/if}
