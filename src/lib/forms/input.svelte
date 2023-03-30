@@ -9,7 +9,7 @@
 </script>
 
 <div class="form-group">
-	<label for={name} class:sr-only={labelHidden}>{label}</label>
+	<label for={name} class:sr-only={labelHidden || type === 'submit'}>{label}</label>
 	{#if type === 'textarea'}
 		<textarea
 			{name}
@@ -20,7 +20,7 @@
 		/>
 	{:else}
 		<input
-			class="sm:max-w-none max-w-[80vw]"
+			style={type === 'color' && `background-color: ${value};`}
 			{type}
 			{name}
 			{placeholder}
