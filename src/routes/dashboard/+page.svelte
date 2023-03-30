@@ -33,4 +33,6 @@
 	{/if}
 </Container>
 
-<Modal title="New League" {open} component={NewLeague} />
+<Modal title="New League" {open}>
+	<NewLeague />
+</Modal>
