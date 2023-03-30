@@ -6,8 +6,7 @@ const config = {
 				sans: ['Poppins']
 			}
 		}
-	},
-	plugins: [require('@tailwindcss/forms')]
+	}
 };
 
 module.exports = config;
