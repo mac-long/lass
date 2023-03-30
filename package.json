@@ -79,8 +79,5 @@
 			"node": true
 		}
 	},
-	"type": "module",
-	"dependencies": {
-		"@tailwindcss/forms": "^0.5.3"
-	}
+	"type": "module"
 }

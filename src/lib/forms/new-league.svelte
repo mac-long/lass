@@ -12,6 +12,6 @@
 		placeholder="Enter league description"
 		value=""
 	/>
-	<Input name="color" label="League Color" type="color" value="#1c1c1c" />
-	<Input type="submit" value="Create" />
+	<Input name="color" label="League Color" type="color" />
+	<input type="submit" value="Create" />
 </form>
