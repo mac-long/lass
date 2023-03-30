@@ -11,10 +11,6 @@
 	});
 </script>
 
-<svelte:window
-	on:load={() => (isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches)}
-/>
-
 <div class="px-8 mx-auto max-w-xl text-black dark:text-white">
 	<h1>Login</h1>
 	<Auth
