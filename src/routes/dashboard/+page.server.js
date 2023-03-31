@@ -13,7 +13,9 @@ export const load = async ({ locals: { getSession } }) => {
 		.contains('admins', [session.user.id])
 		.neq('user', session.user.id);
 
-	const merged = watched.concat(admins);
+	const merged = watched
+		.concat(admins)
+		.filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
 
 	return {
 		leagues,
