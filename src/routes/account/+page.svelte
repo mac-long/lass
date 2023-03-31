@@ -26,11 +26,16 @@
 	</div>
 </form>
 
-<form class="px-4 mx-auto max-w-xl sm:px-0" method="post" action="?/signout" use:enhance={handleSubmit}>
+<form
+	class="px-4 mx-auto max-w-xl sm:px-0"
+	method="post"
+	action="?/signout"
+	use:enhance={handleSubmit}
+>
 	<div class="form-group">
 		<button class="hover:text-white button" type="submit" disabled={loading}>Sign Out</button>
 	</div>
-	<!-- <div class="form-group">
+	<div class="form-group">
 		<button class="delete" formaction="?/delete">Delete Account</button>
-	</div> -->
+	</div>
 </form>

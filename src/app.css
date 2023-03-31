@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body {
+		@apply font-sans text-black min-h-screen flex flex-col;
+		@apply dark:bg-slate-700 dark:text-white;
+	}
+
+	main {
+		@apply text-center  overflow-hidden flex-grow flex-1;
+	}
+
+	h1 {
+		@apply text-4xl sm:text-5xl sm:mb-8 font-bold;
+	}
+
+	a {
+		@apply font-bold;
+		@apply hover:text-emerald-400;
+	}
+
+	p {
+		@apply font-normal;
+	}
+
+	button,
+	.button,
+	input[type='submit'] {
+		@apply bg-emerald-400 border-none px-4 py-2 font-bold rounded-md text-black transition-colors duration-300 ease-in-out cursor-pointer;
+		@apply hover:bg-emerald-500 hover:text-white;
+
+		&.link {
+			@apply bg-transparent text-white;
+			@apply hover:text-emerald-500;
+		}
+
+		&.secondary {
+			@apply bg-white border-gray-300 text-black;
+			@apply hover:bg-indigo-500;
+		}
+
+		&.delete {
+			@apply bg-red-500;
+			@apply hover:bg-red-600;
+		}
+
+		&.circle {
+			@apply w-8 h-8 rounded-full flex items-center justify-center;
+		}
+
+		&.edit {
+			@apply bg-transparent p-0;
+			@apply hover:text-emerald-500;
+		}
+
+		&.no-style {
+			@apply bg-transparent p-0 rounded-none shadow-none w-auto h-auto;
+			@apply hover:text-red-500 hover:bg-transparent;
+		}
+	}
+
+	.form-group {
+		@apply flex flex-col mb-4 space-y-2;
+
+		&.team {
+			@apply flex-row space-x-2 space-y-0;
+		}
+
+		label {
+			@apply font-bold;
+		}
+
+		input,
+		textarea {
+			@apply text-center border-2 border-gray-300 p-2 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-emerald-400 focus:border-transparent;
+
+			&[type='number'] {
+				@apply w-16;
+			}
+
+			&[type='color'] {
+				@apply w-full py-5;
+			}
+
+			&[type='submit'] {
+				@apply w-full;
+			}
+		}
+
+		select {
+			@apply border-2 border-gray-300 rounded-md text-black transition-colors duration-300 ease-in-out focus:ring-2 focus:ring-emerald-400 focus:outline-none;
+		}
+
+		textarea {
+			@apply h-32 resize-none;
+		}
+	}
+
+	table {
+		@apply uppercase font-bold max-w-3xl mx-auto rounded-t-md;
+
+		thead {
+			@apply bg-emerald-400;
+
+			th {
+				@apply px-6 py-3 text-left tracking-wider cursor-pointer select-none;
+			}
+		}
+
+		tbody {
+			tr {
+				@apply border-b border-slate-200;
+
+				td {
+					@apply px-6 py-4 whitespace-nowrap;
+				}
+			}
+		}
+	}
+}
+
+@layer components {
+	.card {
+		@apply w-64 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md mr-4 mb-4;
+
+		h2 {
+			@apply text-2xl p-2;
+		}
+	}
+
+	.actions {
+		@apply flex items-center space-x-2 mb-2;
+	}
+
+	.parallax {
+		@apply relative w-screen h-screen bg-crowd text-white stroke-black stroke-2 bg-fixed flex flex-col items-center space-y-4 justify-center;
+
+		h2 {
+			@apply text-4xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-tr from-cyan-500 to-emerald-500;
+		}
+
+		p {
+			@apply max-w-sm;
+		}
+
+		img {
+			@apply max-w-3xl absolute bottom-0;
+		}
+	}
+}

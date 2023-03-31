@@ -1,56 +1,35 @@
 <script>
-	import Container from '$lib/forms/container.svelte';
-	import Input from '$lib/forms/input.svelte';
-	import { getValue } from '$lib/functions';
-	import Header from '$lib/general/header.svelte';
-	import { Bin, Edit, Plus } from '$lib/icons/icons';
-	import { currentSeason, headings, sortFilter, teamsTable, visibleSeason } from '$lib/store';
-	import { writable } from 'svelte/store';
+	import { AddFixture, EditLeague, Teams } from '$lib/forms/components';
+	import { Header, Modal } from '$lib/general/components';
+	import { Table } from '$lib/league/components';
+	import {
+		currentSeason,
+		editLeagueOpen,
+		editLeagueView,
+		fixtureOpen,
+		leagueView,
+		sortFilter,
+		teamsOpen,
+		teamsTable,
+		visibleSeason
+	} from '$lib/store';
+	import Fixtures from '../../../lib/league/fixtures.svelte';
 
 	export let data;
-	const { league, teams, fixtures, seasons, session, users } = data;
-	const editOpen = writable(false),
-		teamsOpen = writable(false),
-		fixtureOpen = writable(false),
-		view = writable('table'),
-		editView = writable('info');
-
-	teamsTable.set(
-		teams.sort((a, b) => {
-			return $sortFilter.order === 'asc'
-				? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-				: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-		})
-	);
-
-	const handleHeadingClick = (heading) => {
-		sortFilter.set({
-			name: heading.toLowerCase(),
-			order:
-				heading.toLowerCase() === $sortFilter.name
-					? $sortFilter.order === 'asc'
-						? 'desc'
-						: 'asc'
-					: 'desc'
-		});
-		teamsTable.set(
-			$teamsTable.sort((a, b) => {
-				return $sortFilter.order === 'asc'
-					? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
-					: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
-			})
-		);
-	};
-
-	visibleSeason.set(league.currentSeason);
-	currentSeason.set(league.currentSeason);
+	const { league, teams, fixtures, seasons, users, session } = data;
+	$visibleSeason = league.currentSeason;
+	$currentSeason = league.currentSeason;
+	$teamsTable = teams.sort((a, b) => {
+		return $sortFilter.order === 'asc'
+			? a[$sortFilter.name.toLowerCase()] - b[$sortFilter.name.toLowerCase()]
+			: b[$sortFilter.name.toLowerCase()] - a[$sortFilter.name.toLowerCase()];
+	});
 </script>
 
-<!-- Header -->
+<!-- Head/Header -->
 <svelte:head>
 	<title>{league.name} | Lass</title>
 </svelte:head>
-
 <Header
 	actions={[
 		{
@@ -59,7 +38,7 @@
 				navigator.clipboard.writeText(`https://lass.vercel.app/dashboard/${league.id}`),
 			type: 'share'
 		},
-		{ label: 'Settings', onClick: () => editOpen.set(true), type: 'settings' },
+		{ label: 'Settings', onClick: () => editLeagueOpen.set(true), type: 'settings' },
 		{ label: 'Teams', onClick: () => teamsOpen.set(true), type: 'secondary' },
 		{ label: 'Add Fixture', onClick: () => fixtureOpen.set(true), type: 'primary' },
 		{
@@ -72,17 +51,17 @@
 	secondaryActions={[
 		{
 			label: 'Table',
-			onClick: () => view.set('table'),
+			onClick: () => leagueView.set('table'),
 			type: 'secondary'
 		},
 		{
 			label: 'Fixtures',
-			onClick: () => view.set('fixtures'),
+			onClick: () => leagueView.set('fixtures'),
 			type: 'secondary'
 		}
 	]}
+	view={$leagueView}
 	dashboard
-	view={$view}
 	{seasons}
 	{teams}
 	{session}
@@ -90,293 +69,15 @@
 />
 
 <!-- Main View -->
-{#if $view === 'table'}
-	<div class="overflow-x-scroll space-y-4">
-		<table>
-			<thead>
-				<tr class="rounded-t-md">
-					{#each $headings as heading}
-						{#if heading === 'Pos' || heading === 'Club'}
-							<th class="cursor-default">{heading}</th>
-						{:else}
-							<th class="px-4" on:click={() => handleHeadingClick(heading)}>
-								<span class="flex items-center">
-									{heading}
-									{#if heading.toLowerCase() === $sortFilter.name}
-										{#if $sortFilter.order === 'desc'}
-											<span class="transform rotate-180">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													class="feather feather-chevron-up"
-													><polyline points="18 15 12 9 6 15" /></svg
-												>
-											</span>
-										{:else}
-											<span class="">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													width="24"
-													height="24"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													class="feather feather-chevron-up"
-													><polyline points="18 15 12 9 6 15" /></svg
-												>
-											</span>
-										{/if}
-									{/if}
-								</span>
-							</th>
-						{/if}
-					{/each}
-				</tr>
-			</thead>
-			<tbody>
-				{#each $teamsTable as team, i}
-					<tr>
-						<td>{i + 1}</td>
-						<td class="flex items-center space-x-8">
-							{#if team.img}<img
-									class="w-5 max-h-6"
-									src={team.image}
-									alt={`${team.name} logo`}
-								/>{/if}
-							<span>
-								{team.name}
-								<span class="text-xs">
-									({team.player})
-								</span>
-							</span>
-						</td>
-						<td>{team.played}</td>
-						<td>{team.won}</td>
-						<td>{team.drawn}</td>
-						<td>{team.lost}</td>
-						<td>{team.gf}</td>
-						<td>{team.ga}</td>
-						<td>{team.gd}</td>
-						<td>{team.pts}</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+{#if $leagueView === 'table'}
+	<Table {teams} {seasons} />
 {:else}
-	<div class="flex flex-wrap justify-center items-center pb-16 mx-auto max-w-7xl">
-		{#if fixtures.length === 0}
-			<div class="flex flex-col justify-center items-center space-y-4">
-				<h2 class="text-xl font-bold">No fixtures yet</h2>
-				<p class="text-center">Add some fixtures to get started</p>
-			</div>
-		{/if}
-		{#each fixtures
-			.sort((a, b) => b.id - a.id)
-			.filter((fixture) => fixture.season === $visibleSeason) as fixture}
-			<form
-				class="flex relative flex-col justify-center items-center mr-4 mb-4 font-bold text-black bg-white rounded-lg shadow-md w-[200px] h-[270px] group"
-				action="?/deleteFixture"
-				method="POST"
-			>
-				<input type="hidden" name="id" value={fixture.id} />
-				<span class="flex flex-col items-center space-y-4">
-					<input type="number" class="hidden" name="home" value={fixture.home} />
-					<input type="number" class="hidden" name="homeScore" value={fixture.homeScore} />
-					{getValue(fixture.home, teams, 'name')}<span class="text-2xl">{fixture.homeScore}</span>
-					<span class="mx-2 text-4xl">vs</span>
-					<span class="flex flex-col-reverse items-center">
-						<input type="number" class="hidden" name="away" value={fixture.away} />
-						<input type="number" class="hidden" name="awayScore" value={fixture.awayScore} />
-						{getValue(fixture.away, teams, 'name')}<span class="text-2xl">{fixture.awayScore}</span>
-					</span>
-				</span>
-				<button
-					class="hidden absolute top-0 right-0 m-2 w-2 h-2 rounded-full cursor-pointer hover:text-red-500 no-style"
-					class:group-hover:block={league.admins.includes(session.user.id)}
-					type="submit"
-				>
-					<Bin />
-				</button>
-			</form>
-		{/each}
-	</div>
+	<Fixtures admins={league.admins} user={session.user.id} {teams} {fixtures} />
 {/if}
 
 <!-- Modals -->
-<!-- Edit League -->
-<Container title="Edit League" open={editOpen}>
-	<div class="flex items-center mb-4 space-x-2">
-		<span
-			class="font-bold cursor-pointer"
-			class:underline={$editView === 'info'}
-			on:click={() => editView.set('info')}
-			on:keydown={() => editView.set('info')}
-		>
-			Info
-		</span>
-		<span
-			class="font-bold cursor-pointer"
-			class:underline={$editView === 'admins'}
-			on:click={() => editView.set('admins')}
-			on:keydown={() => editView.set('admins')}
-		>
-			Admins
-		</span>
-	</div>
-	{#if $editView === 'info'}
-		<form class="flex flex-col space-y-4" action="?/edit" method="POST">
-			<Input
-				name="name"
-				label="League Name"
-				type="text"
-				placeholder="Enter league name"
-				value={league.name}
-			/>
-			<Input
-				name="description"
-				label="League Description"
-				type="textarea"
-				maxLength={255}
-				placeholder="Enter league description"
-				value={league.description}
-			/>
-			<Input name="color" label="League Color" type="color" value={league.color} />
-			<div class="flex-1" />
-			<div class="form-group">
-				<input class="secondary" type="submit" formaction="?/newSeason" value="New Season" />
-				<input class="delete" type="submit" formaction="?/delete" value="Delete" />
-				<input type="submit" value="Update" />
-			</div>
-		</form>
-	{:else}
-		<ul class="space-y-4">
-			{#if league.admins.length === 0}
-				<p class="font-bold text-center">No admins</p>
-				<p>Add some to allow other users to add/delete teams and add/delete fixtures</p>
-			{/if}
-			{#each league.admins as admin}
-				{#if admin !== league.user}
-					<form method="POST" action="?/removeAdmin">
-						<input type="hidden" name="id" value={admin} />
-						<li class="flex items-center">
-							{getValue(admin, users, 'email')}
-							<button class="ml-2 no-style" type="submit">
-								<Bin />
-							</button>
-						</li>
-					</form>
-				{/if}
-			{/each}
-		</ul>
-		<form class="flex items-center" action="?/addAdmin" method="POST">
-			<Input name="email" type="email" placeholder="Enter admin email" labelHidden />
-			<button class="ml-2 -mt-2 edit" type="submit">
-				<Plus />
-			</button>
-		</form>
-	{/if}
-</Container>
-
-<!-- Teams -->
-<Container title="Teams" open={teamsOpen} lg>
-	<div class="flex flex-col items-center text-center">
-		{#each teams as team}
-			<form class="mx-auto" method="POST" action="?/editTeam">
-				<input type="hidden" name="id" value={team.id} />
-				<div class="flex flex-col items-center p-0 m-0 space-x-2 sm:flex-row w-[755px]">
-					<Input
-						name="name"
-						label="Team Name"
-						type="text"
-						placeholder="Enter team name"
-						value={team.name}
-						labelHidden
-					/>
-					<Input
-						name="player"
-						label="Player Name"
-						type="text"
-						placeholder="Enter player name"
-						value={team.player}
-						labelHidden
-					/>
-					<div class="actions">
-						<button class="edit" type="submit">
-							<Edit />
-						</button>
-						<button class="no-style" formaction="?/deleteTeam"><Bin /></button>
-					</div>
-				</div>
-			</form>
-		{/each}
-		<form class="mx-auto" method="POST" action="?/teams">
-			<div class="flex flex-col items-center p-0 m-0 space-x-2 sm:flex-row w-[755px]">
-				<Input
-					name="name"
-					label="Team Name"
-					type="text"
-					placeholder="Enter team name"
-					labelHidden
-				/>
-				<Input
-					name="player"
-					label="Player Name"
-					type="text"
-					placeholder="Enter player name"
-					labelHidden
-				/>
-				<div class="actions">
-					<button class="edit" formaction="?/addTeam">
-						<Plus />
-					</button>
-				</div>
-			</div>
-		</form>
-	</div>
-</Container>
-
-<!-- Add Fixture -->
-<Container title="Add Fixture" open={fixtureOpen}>
-	<form class="flex flex-col py-4 mx-auto space-y-4" method="POST" action="?/addFixture">
-		<div class="flex flex-col justify-center items-center space-y-4">
-			<div class="form-group">
-				<h3 class="text-xl">Home</h3>
-				<div class="flex items-center space-x-2">
-					<select name="home" defaultValue={$teamsTable[0].id}>
-						{#each $teamsTable as team}
-							<option value={team.id}>{team.name}</option>
-						{/each}
-					</select>
-					<input name="homeScore" type="number" defaultValue={0} />
-				</div>
-			</div>
-			<div class="form-group">
-				<h3 class="text-xl">Away</h3>
-				<div class="flex items-center space-x-2">
-					<select name="away" defaultValue={$teamsTable[0].id}>
-						{#each $teamsTable as team}
-							<option value={team.id}>{team.name}</option>
-						{/each}
-					</select>
-					<input name="awayScore" type="number" defaultValue={0} />
-					<input name="season" type="hidden" value={league.currentSeason} />
-				</div>
-			</div>
-		</div>
-		<div class="form-group">
-			<button class="secondary" on:click={() => fixtureOpen.set(false)}>Cancel</button>
-			<input type="submit" value="Submit" />
-		</div>
-	</form>
-</Container>
+<Modal title="Edit League" open={editLeagueOpen}>
+	<EditLeague view={editLeagueView} {league} {users} />
+</Modal>
+<Modal title="Teams" open={teamsOpen} lg><Teams {teams} /></Modal>
+<Modal title="Add Fixture" open={fixtureOpen}><AddFixture {league} /></Modal>

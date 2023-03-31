@@ -4,9 +4,13 @@ const config = {
 		extend: {
 			fontFamily: {
 				sans: ['Poppins']
+			},
+			backgroundImage: {
+				crowd: "url('/bg.png')"
 			}
 		}
-	}
+	},
+	plugins: [require('@tailwindcss/forms')]
 };
 
 module.exports = config;
