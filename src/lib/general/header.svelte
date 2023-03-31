@@ -21,7 +21,7 @@
 		<p class="py-4 mx-auto max-w-lg">
 			{description}
 		</p>
-		<div class="flex  justify-center items-center my-4 space-x-3">
+		<div class="flex justify-center items-center my-4 space-x-3">
 			{#each actions as action}
 				{#if (league?.admins?.includes(session?.user.id) && action.type !== 'watcher') || (league?.admins?.includes(session?.user.id) && action.type !== 'watcher' && action.label !== 'New')}
 					<button
