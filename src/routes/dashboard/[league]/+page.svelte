@@ -60,12 +60,12 @@
 			type: 'secondary'
 		}
 	]}
-	dashboard
 	view={$leagueView}
 	{seasons}
 	{teams}
 	{session}
 	{league}
+	dashboard
 />
 
 <!-- Main View -->
