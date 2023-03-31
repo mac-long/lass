@@ -12,8 +12,6 @@ export function sortTeams(currentSeasonStandings, seasons) {
 	currentSeason.subscribe((value) => (curSeason = value));
 	teamsTable.subscribe((value) => (teams = value));
 
-	console.log(teams);
-
 	if (visSeason !== curSeason) {
 		teams = seasons.find((season) => season.number === visSeason).table;
 	} else {
