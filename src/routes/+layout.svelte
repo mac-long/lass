@@ -3,7 +3,7 @@
 	import '@fontsource/poppins/400.css';
 	import '@fontsource/poppins/700.css';
 	import { onMount } from 'svelte';
-	import '../app.postcss';
+	import '../app.css';
 
 	export let data;
 	$: ({ supabase } = data);
