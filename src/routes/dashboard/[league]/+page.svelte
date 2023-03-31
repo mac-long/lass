@@ -16,7 +16,7 @@
 	import Fixtures from '../../../lib/league/fixtures.svelte';
 
 	export let data;
-	const { league, teams, fixtures, seasons, session } = data;
+	const { league, teams, fixtures, seasons, users, session } = data;
 	$visibleSeason = league.currentSeason;
 	$currentSeason = league.currentSeason;
 	$teamsTable = teams.sort((a, b) => {
@@ -61,23 +61,23 @@
 		}
 	]}
 	view={$leagueView}
+	dashboard
 	{seasons}
 	{teams}
 	{session}
 	{league}
-	dashboard
 />
 
 <!-- Main View -->
 {#if $leagueView === 'table'}
-	<Table />
+	<Table {teams} {seasons} />
 {:else}
 	<Fixtures admins={league.admins} user={session.user.id} {teams} {fixtures} />
 {/if}
 
 <!-- Modals -->
 <Modal title="Edit League" open={editLeagueOpen}>
-	<EditLeague view={editLeagueView} {league} />
+	<EditLeague view={editLeagueView} {league} {users} />
 </Modal>
-<Modal title="Teams" open={teamsOpen} lg><Teams /></Modal>
-<Modal title="Add Fixture" open={fixtureOpen}><AddFixture /></Modal>
+<Modal title="Teams" open={teamsOpen} lg><Teams {teams} /></Modal>
+<Modal title="Add Fixture" open={fixtureOpen}><AddFixture {league} /></Modal>

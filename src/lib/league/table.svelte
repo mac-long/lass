@@ -2,6 +2,8 @@
 	import { sortTeams } from '$lib/functions';
 	import { sortFilter, tableHeadings, teamsTable } from '$lib/store';
 
+	export let teams, seasons;
+
 	const handleHeadingClick = (heading) => {
 		sortFilter.set({
 			name: heading.toLowerCase(),
@@ -12,7 +14,7 @@
 						: 'asc'
 					: 'desc'
 		});
-		sortTeams();
+		sortTeams(teams, seasons);
 	};
 </script>
 

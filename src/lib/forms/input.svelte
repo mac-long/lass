@@ -1,6 +1,6 @@
 <script>
 	export let name,
-		label,
+		label = '',
 		labelHidden = false,
 		type,
 		placeholder = '',

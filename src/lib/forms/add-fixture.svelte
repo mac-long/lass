@@ -28,5 +28,6 @@
 				<input name="season" type="hidden" value={league.currentSeason} />
 			</div>
 		</div>
+		<input type="submit" value="Add Fixture" />
 	</div>
 </form>

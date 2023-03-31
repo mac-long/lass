@@ -1,5 +1,6 @@
 <script>
-	import { Plus } from '$lib/icons/components';
+	import { getValue } from '$lib/functions';
+	import { Bin, Plus } from '$lib/icons/components';
 	import Input from './input.svelte';
 
 	export let view, league, users;
@@ -58,7 +59,6 @@
 			</p>
 		{/if}
 		{#each league.admins as admin}
-			<!--
 			{#if admin !== league.user}
 				<form method="POST" action="?/removeAdmin">
 					<input type="hidden" name="id" value={admin} />
@@ -70,8 +70,6 @@
 					</li>
 				</form>
 			{/if}
-		-->
-			{admin}
 		{/each}
 	</ul>
 	<form class="flex items-center" action="?/addAdmin" method="POST">
