@@ -62,10 +62,6 @@
 		}
 	}
 
-	.actions {
-		@apply flex items-center space-x-2 mb-2;
-	}
-
 	.form-group {
 		@apply flex flex-col mb-4 space-y-2;
 
@@ -124,12 +120,34 @@
 			}
 		}
 	}
+}
 
+@layer components {
 	.card {
 		@apply w-64 h-36 flex items-end justify-start text-left rounded-b-md rounded-tl-md mr-4 mb-4;
 
 		h2 {
 			@apply text-2xl p-2;
+		}
+	}
+
+	.actions {
+		@apply flex items-center space-x-2 mb-2;
+	}
+
+	.parallax {
+		@apply relative w-screen h-screen bg-crowd text-white stroke-black stroke-2 bg-fixed flex flex-col items-center space-y-4 justify-center;
+
+		h2 {
+			@apply text-4xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-tr from-cyan-500 to-emerald-500;
+		}
+
+		p {
+			@apply max-w-sm;
+		}
+
+		img {
+			@apply max-w-3xl absolute bottom-0;
 		}
 	}
 }
