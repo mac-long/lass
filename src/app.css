@@ -139,7 +139,7 @@
 		@apply relative w-screen h-screen bg-crowd text-white stroke-black stroke-2 bg-fixed flex flex-col items-center space-y-4 justify-center;
 
 		h2 {
-			@apply text-4xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-tr from-cyan-500 to-emerald-500;
+			@apply text-4xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-tr from-cyan-500 to-emerald-500 drop-shadow-[0_1.2px_1.2px_#000];
 		}
 
 		p {

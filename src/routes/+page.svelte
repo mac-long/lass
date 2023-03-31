@@ -10,7 +10,12 @@
 	/>
 
 	<div class="flex justify-center items-center space-x-2">
-		<a class="button secondary" href="https://github.com/mac-long/league-tables" target="_blank">
+		<a
+			class="button secondary"
+			href="https://github.com/mac-long/league-tables"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
 			Contribute
 		</a>
 		{#if data.session}
