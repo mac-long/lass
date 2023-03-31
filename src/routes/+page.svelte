@@ -1,5 +1,5 @@
 <script>
-	import Header from '$lib/general/components';
+	import { Header } from '$lib/general/components';
 	export let data;
 </script>
 
