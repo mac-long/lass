@@ -25,12 +25,3 @@
 		{/if}
 	</div>
 </div>
-<div class="parallax">
-	<h2>Compete With Your Friends</h2>
-
-	<p>
-		Compete with your friends in a league table to see who is the best. Create a league table for
-		any sport or activity.
-	</p>
-	<img src="/screen.png" alt="League Table" />
-</div>
