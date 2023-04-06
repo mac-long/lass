@@ -3,4 +3,4 @@ import EditLeague from './edit-league.svelte';
 import NewLeague from './new-league.svelte';
 import Teams from './teams.svelte';
 
-export { EditLeague, AddFixture, NewLeague, Teams };
+export {EditLeague, AddFixture, NewLeague, Teams};

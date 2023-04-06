@@ -1,64 +1,62 @@
-import { supabase } from '$lib/supabase';
+import {supabase} from '$lib/supabase';
 
-export const load = async ({ locals: { getSession } }) => {
-	const session = await getSession();
-	const { data: leagues } = await supabase.from('leagues').select().eq('user', session.user.id);
-	const { data: watched } = await supabase
-		.from('leagues')
-		.select()
-		.contains('watchers', [session.user.id]);
-	const { data: admins } = await supabase
-		.from('leagues')
-		.select()
-		.contains('admins', [session.user.id])
-		.neq('user', session.user.id);
+export const load = async ({locals: {getSession}}) => {
+  const session = await getSession();
+  const {data: leagues} = await supabase.from('leagues').select().eq('user', session.user.id);
+  const {data: watched} = await supabase
+    .from('leagues')
+    .select()
+    .contains('watchers', [session.user.id]);
+  const {data: admins} = await supabase
+    .from('leagues')
+    .select()
+    .contains('admins', [session.user.id])
+    .neq('user', session.user.id);
 
-	const merged = watched
-		.concat(admins)
-		.filter((v, i, a) => a.findIndex((t) => t.id === v.id) === i);
+  const merged = watched.concat(admins).filter((v, i, a) => a.findIndex(t => t.id === v.id) === i);
 
-	return {
-		leagues,
-		merged
-	};
+  return {
+    leagues,
+    merged
+  };
 };
 
 export const actions = {
-	new: async ({ locals: { getSession }, request }) => {
-		const session = await getSession();
-		const data = await request.formData();
+  new: async ({locals: {getSession}, request}) => {
+    const session = await getSession();
+    const data = await request.formData();
 
-		const { data: leagues, error } = await supabase
-			.from('leagues')
-			.insert({
-				user: session.user.id,
-				name: data.get('name'),
-				description: data.get('description'),
-				color: data.get('color'),
-				currentSeason: 1,
-				watchers: [],
-				admins: [session.user.id]
-			})
-			.select();
+    const {data: leagues, error} = await supabase
+      .from('leagues')
+      .insert({
+        user: session.user.id,
+        name: data.get('name'),
+        description: data.get('description'),
+        color: data.get('color'),
+        currentSeason: 1,
+        watchers: [],
+        admins: [session.user.id]
+      })
+      .select();
 
-		const { data: season, error: seasonError } = await supabase.from('seasons').insert({
-			league: leagues[0].id,
-			number: 1
-		});
+    const {data: season, error: seasonError} = await supabase.from('seasons').insert({
+      league: leagues[0].id,
+      number: 1
+    });
 
-		if (error || seasonError) {
-			return {
-				status: 500,
-				error
-			};
-		} else {
-			return {
-				status: 200,
-				body: {
-					leagues,
-					season
-				}
-			};
-		}
-	}
+    if (error || seasonError) {
+      return {
+        status: 500,
+        error
+      };
+    } else {
+      return {
+        status: 200,
+        body: {
+          leagues,
+          season
+        }
+      };
+    }
+  }
 };

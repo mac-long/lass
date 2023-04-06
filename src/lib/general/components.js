@@ -3,4 +3,4 @@ import Header from './header/header.svelte';
 import List from './list.svelte';
 import Modal from './modal.svelte';
 
-export { Header, Modal, List, Container };
+export {Header, Modal, List, Container};

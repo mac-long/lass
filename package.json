@@ -32,54 +32,8 @@
     "svelte": "^3.54.0",
     "svelte-preprocess": "^5.0.0",
     "tailwindcss": "^3.1.5",
-    "vite": "^4.0.0"
-  },
-  "prettier": {
-    "useTabs": true,
-    "singleQuote": true,
-    "trailingComma": "none",
-    "printWidth": 100,
-    "plugins": [
-      "prettier-plugin-svelte"
-    ],
-    "pluginSearchDirs": [
-      "."
-    ],
-    "overrides": [
-      {
-        "files": "*.svelte",
-        "options": {
-          "parser": "svelte"
-        }
-      }
-    ]
-  },
-  "eslintConfig": {
-    "root": true,
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "plugins": [
-      "svelte3"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "*.svelte"
-        ],
-        "processor": "svelte3/svelte3"
-      }
-    ],
-    "parserOptions": {
-      "sourceType": "module",
-      "ecmaVersion": 2020
-    },
-    "env": {
-      "browser": true,
-      "es2017": true,
-      "node": true
-    }
+    "vite": "^4.0.0",
+    "vitest": "^0.29.8"
   },
   "type": "module"
 }
