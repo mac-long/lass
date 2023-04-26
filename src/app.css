@@ -18,7 +18,8 @@
   }
 
   a {
-    @apply font-bold;
+    @apply font-bold text-black;
+    @apply dark:text-white;
     @apply hover:text-emerald-400;
   }
 
