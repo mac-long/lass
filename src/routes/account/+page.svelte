@@ -26,7 +26,7 @@
   </div>
 </form>
 
-<form
+<!--<form
   class="px-4 mx-auto max-w-xl sm:px-0"
   method="post"
   action="?/signout"
@@ -45,4 +45,4 @@
   <div class="form-group">
     <button class="delete" formaction="?/delete">Delete Account</button>
   </div>
-</form>
+</form>-->
