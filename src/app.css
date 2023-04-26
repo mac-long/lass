@@ -34,7 +34,8 @@
     @apply hover:bg-emerald-500 hover:text-white;
 
     &.link {
-      @apply bg-transparent text-white;
+      @apply bg-transparent text-black;
+      @apply dark:text-white;
       @apply hover:text-emerald-500;
     }
 
