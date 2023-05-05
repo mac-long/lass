@@ -26,23 +26,12 @@
   </div>
 </form>
 
-<!--<form
+<form
   class="px-4 mx-auto max-w-xl sm:px-0"
   method="post"
   action="?/signout"
   use:enhance={handleSubmit}>
   <div class="form-group">
-    <select class="text-red-500" name="Theme" bind:value={$theme}>
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="system">System</option>
-      <option value="tsc">TSC</option>
-    </select>
-  </div>
-  <div class="form-group">
     <button class="hover:text-white button" type="submit" disabled={loading}>Sign Out</button>
-  </div>
-  <div class="form-group">
-    <button class="delete" formaction="?/delete">Delete Account</button>
   </div>
 </form>-->
